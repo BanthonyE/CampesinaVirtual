@@ -1,7 +1,7 @@
 <?php 
 	
 	//define("BASE_URL", "http://localhost/tienda_virtual/");
-	const BASE_URL = "http://localhost:90/campesinavirtual";
+	const BASE_URL = "http://localhost:90/Campesinavirtual";
 
 	//Zona horaria
 	date_default_timezone_set('America/Guatemala');

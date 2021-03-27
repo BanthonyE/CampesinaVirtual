@@ -131,3 +131,34 @@
   </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="modalViewCarnetUsuario" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header header-primary">
+        <h5 class="modal-title" id="titleModal">Vista del carnet del usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+        <tbody>
+            <tr>
+              <td width="100" height="250">Imagen Anverso:</td>
+              <td id="imgAnverso"></td>
+            </tr>            
+            <tr>
+              <td width="100" height="250">Imagen Reverso:</td>
+              <td id="imgreverso"></td>
+            </tr>            
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

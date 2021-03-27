@@ -138,22 +138,26 @@ function fntViewInfo(idpersona){
 function fntCarnetUsuario(idpersona){
     var idpersona = idpersona;
     var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    var ajaxUrl = base_url+'/Clientes/getCliente/'+idpersona;
+    var ajaxUrl = base_url+'/Usuarios/getUsuario/'+idpersona;
     request.open("GET",ajaxUrl,true);
     request.send();
     request.onreadystatechange = function(){
         if(request.readyState == 4 && request.status == 200){
             var objData = JSON.parse(request.responseText);
+
             if(objData.status)
             {
+               var estadoUsuario = objData.data.status == 1 ? 
+                '<span class="badge badge-success">Activo</span>' : 
+                '<span class="badge badge-danger">Inactivo</span>';
+
                 document.querySelector("#celIdentificacion").innerHTML = objData.data.identificacion;
                 document.querySelector("#celNombre").innerHTML = objData.data.nombres;
                 document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
                 document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
                 document.querySelector("#celEmail").innerHTML = objData.data.email_user;
-                document.querySelector("#celIde").innerHTML = objData.data.nit;
-                document.querySelector("#celNomFiscal").innerHTML = objData.data.nombrefiscal;
-                document.querySelector("#celDirFiscal").innerHTML = objData.data.direccionfiscal;
+                document.querySelector("#celTipoUsuario").innerHTML = objData.data.nombrerol;
+                document.querySelector("#celEstado").innerHTML = estadoUsuario;
                 document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro; 
                 $('#modalViewCarnetUsuario').modal('show');
             }else{

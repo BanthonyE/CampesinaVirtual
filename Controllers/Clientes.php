@@ -105,13 +105,16 @@ class Clientes extends Controllers{
 			if($_SESSION['permisosMod']['r']){
 				$btnView = '<button class="btn btn-info btn-sm" onClick="fntViewInfo('.$arrData[$i]['idpersona'].')" title="Ver cliente"><i class="far fa-eye"></i></button>';
 			}
+				
+			$btnCarnet = '<button class="btn btn-secondary btn-sm btnCarnetUsuario" onClick="fntCarnetUsuario('.$arrData[$i]['idpersona'].')" title="Carnet Usuario"><i class="far fa-id-card"></i></button>';
+							
 			if($_SESSION['permisosMod']['u']){
 				$btnEdit = '<button class="btn btn-primary  btn-sm" onClick="fntEditInfo('.$arrData[$i]['idpersona'].')" title="Editar cliente"><i class="fas fa-pencil-alt"></i></button>';
 			}
 			if($_SESSION['permisosMod']['d']){	
 				$btnDelete = '<button class="btn btn-danger btn-sm" onClick="fntDelInfo('.$arrData[$i]['idpersona'].')" title="Eliminar cliente"><i class="far fa-trash-alt"></i></button>';
 			}
-			$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
+			$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnCarnet.' '.$btnEdit.' '.$btnDelete.'</div>';
 		}
 		echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
 		die();

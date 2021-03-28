@@ -13,8 +13,8 @@ class Login extends Controllers
 
 	public function login()
 	{
-		$data['page_tag'] = "Login - Rondas Comuneras";
-		$data['page_title'] = "Rondas Comuneras";
+		$data['page_tag'] = "Login - CUNARC";
+		$data['page_title'] = "CUNARC";
 		$data['page_name'] = "login";
 		$data['page_functions_js'] = "functions_login.js";
 		$this->views->getView($this, "login", $data);

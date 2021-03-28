@@ -1,7 +1,13 @@
-<?php
+<?php 
+$servername = "localhost";
+$database = "db_campesinavirtual";
+$username = "root";
+$password = "";
 
-include("db_connect.php");
-require "vendor/picqer/php-barcode-generator";
+$db = mysqli_connect($servername, $username, $password, $database);
+
+
+require 'Assets/vendor/autoload.php';
 
 $serial="0001";
 $Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
@@ -24,8 +30,8 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
     }
 
     #id {
-        width: 250px;
-        height: 450px;
+        width: 450px;
+        height: 250px;
         position: absolute;
         opacity: 0.88;
         font-family: sans-serif;
@@ -40,7 +46,7 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
         position: absolute;
         width: 100%;
         height: 100%;
-        background: url('images/malawi.png');
+        background: url('Assets/images/carnet/malawi.png');
         /*if you want to change the background image replace logo.png*/
         background-repeat: repeat-x;
         background-size: 250px 450px;
@@ -58,26 +64,19 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
 
     .id-1 {
         transition: 0.4s;
-        width: 250px;
-        height: 450px;
+        width: 450px;
+        height: 250px;
         background: #FFFFFF;
         text-align: center;
         font-size: 16px;
         font-family: sans-serif;
         float: left;
         margin: auto;
-        margin-left: 270px;
+        margin-left: 570px;
         border-radius: 2%;
-
-
     }
+    
 </style>
-<?php 
-  $db = new mysqli("localhost","root","");
-  if($db->connect_errno > 0){
-    die('Unable to connect to database [' . $db->connect_error . ']');  
-  }   
-?>
 
 <body>
     <script type="text/javascript">
@@ -87,21 +86,23 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
         <div id="id">
             <table>
                 <tr>
-                    <td>
-                        
-                        <img src="images/love.png" alt="Avatar" width="70px" height="70px"> <?php }?>
+                    <td>                        
+                        <img src="Assets/images/carnet/love.png" alt="Avatar" width="50px" height="50px">
                     </td>
                     <td>
-                        <h3><b>THE STATE GOVERNMENT OF MALAWI</b></h3>
+                        <h3><b>CENTRAL ÚNICA REGIONAL DE RONDAS CAMPESINAS</b></h3>
+                        <center><h3><b>LA LIBERTAD</b></h3></center>
                     </td>
                 </tr>
             </table>
             <center>
                 <?php  
      $idx = $_GET['id'];
-      $sqlmember ="SELECT * FROM persona WHERE id='$idx' ";
+      $sqlmember ="SELECT * FROM persona WHERE idpersona='$idx'";
 			$retrieve = mysqli_query($db,$sqlmember);
 			$count=0;
+      
+     
       while($found = mysqli_fetch_array($retrieve)){
 /*         $title=$found['Mtitle'];$firstname=$found['Firstname'];$sirname=$found['Sirname'];$rank=$found['Rank'];
         $id=$found['id'];$dept=$found['Department'];$contact=$found['Email'];
@@ -121,16 +122,11 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
         $pass="a";
         $names="aaaa vvv";
         $profile;
-      }  	 
+      }
 
              	 	
-             	 	if($profile!=""){          
-										   echo"<img src='images/$profile' height='175px' width='200px' alt='' style='border: 2px solid black;'>";	   
-									    }
-								else{
-									echo"<img src='admin/images/profile.jpg' height='175px' width='200px' alt='' style='border: 2px solid black;'>";	   
-														     	
-									} 
+									echo"<img src='Assets/images/carnet/avatar.jpg' height='175px' width='200px' alt='' style='border: 2px solid black;'>";	   
+										
              	 	 ?> </center>
             <div class="container" align="center">
 
@@ -149,7 +145,7 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
         </div>
         <div class="id-1">
 
-            <center><img src="images/malawi.png" alt="Avatar" width="200px" height="175px">
+            <center><img src="Assets/images/carnet/malawi.png" alt="Avatar" width="200px" height="175px">
                 <div class="container" align="center">
                     <p style="margin:auto">The bearer whose photograph appears overleaf is a staff of</p>
                     <h2 style="color:#00BFFF;margin-left:2%">THE STATE GOVERNMENT OF MALAWI </h2>

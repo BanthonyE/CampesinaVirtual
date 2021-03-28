@@ -60,6 +60,7 @@ class Roles extends Controllers
 		$arrData = $this->model->selectRoles();
 		if (count($arrData) > 0) {
 			for ($i = 0; $i < count($arrData); $i++) {
+				
 				if ($arrData[$i]['status'] == 1 && $_SESSION['idRole'] < $arrData[$i]['idrol']) {
 					$htmlOptions .= '<option value="' . $arrData[$i]['idrol'] . '">' . $arrData[$i]['nombrerol'] . '</option>';
 				}
@@ -118,19 +119,25 @@ class Roles extends Controllers
 	}
 
 	public function delRol()
-	{
-		if ($_POST) {
-			$intIdrol = intval($_POST['idrol']);
-			$requestDelete = $this->model->deleteRol($intIdrol);
-			if ($requestDelete == 'ok') {
-				$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el Rol');
-			} else if ($requestDelete == 'exist') {
-				$arrResponse = array('status' => false, 'msg' => 'No es posible eliminar un Rol asociado a usuarios.');
-			} else {
-				$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el Rol.');
+		{
+			if($_POST){
+				if($_SESSION['permisosMod']['d']){
+					$intIdrol = intval($_POST['idrol']);
+					$requestDelete = $this->model->deleteRol($intIdrol);
+					if($requestDelete == 'ok')
+					{
+						$arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el Rol');
+					}else if($requestDelete == 'exist'){
+						$arrResponse = array('status' => false, 'msg' => 'No es posible eliminar un Rol asociado a usuarios.');
+					}else{
+						$arrResponse = array('status' => false, 'msg' => 'Error al eliminar el Rol.');
+					}
+					echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+				}
+				
 			}
-			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+			die();
 		}
-		die();
-	}
 }
+
+?>

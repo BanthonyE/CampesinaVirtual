@@ -64,7 +64,7 @@ class ClientesModel extends Mysql
 	{
 		$sql = "SELECT idpersona,identificacion,nombres,apellidos,telefono,email_user,status 
 				FROM persona 
-				WHERE rolid = 7 and status != 0 ";
+				WHERE rolid = 12 and status != 0 ";
 		$request = $this->select_all($sql);
 		return $request;
 	}
@@ -73,7 +73,7 @@ class ClientesModel extends Mysql
 		$this->intIdUsuario = $idpersona;
 		$sql = "SELECT idpersona,identificacion,nombres,apellidos,telefono,email_user,nit,nombrefiscal,direccionfiscal,status, DATE_FORMAT(datecreated, '%d-%m-%Y') as fechaRegistro 
 				FROM persona
-				WHERE idpersona = $this->intIdUsuario and rolid = 7";
+				WHERE idpersona = $this->intIdUsuario and rolid = 12";
 		$request = $this->select($sql);
 		return $request;
 	}

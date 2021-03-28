@@ -8,7 +8,7 @@
 
 	//Datos de conexión a Base de Datos
 	const DB_HOST = "localhost";
-	const DB_NAME = "db_tiendavirtual";
+	const DB_NAME = "db_campesinavirtual";
 	const DB_USER = "root";
 	const DB_PASSWORD = "";
 	const DB_CHARSET = "utf8";
@@ -21,9 +21,9 @@
 	const SMONEY = "Q";
 
 	//Datos envio de correo
-	const NOMBRE_REMITENTE = "Tienda Virtual";
+	const NOMBRE_REMITENTE = "Campesina Virtual";
 	const EMAIL_REMITENTE = "no-reply@abelosh.com";
-	const NOMBRE_EMPESA = "Tienda Virtual";
+	const NOMBRE_EMPESA = "Campesina Virtual";
 	const WEB_EMPRESA = "www.abelosh.com";
 	
 

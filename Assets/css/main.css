@@ -15475,6 +15475,16 @@ be a descendant of the grid when it is being dragged.
   -o-transition: margin-left 0.3s ease;
   transition: margin-left 0.3s ease;
 }
+/*Pestaña Dasbord - NOTICIAS*/
+.app-content2 {
+  min-height: calc(220vh - 50px);
+  margin-top: 50px;
+  padding: 30px;
+  background-color: #e5e5e5;
+  -webkit-transition: margin-left 0.3s ease;
+  -o-transition: margin-left 0.3s ease;
+  transition: margin-left 0.3s ease;
+}
 
 @media (min-width: 768px) {
   .app-content {
@@ -15502,7 +15512,35 @@ be a descendant of the grid when it is being dragged.
     background-color: #fff;
   }
 }
+/*PRUEBA DE NUEVO TITULO - NOTICIAS*/
 
+@media (min-width: 768px) {
+  .app-content2 {
+    margin-left: 230px;
+  }
+}
+
+@media (max-width: 767px) {
+  .app-content2 {
+    margin-top: 50px;
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-content2 {
+    padding: 15px;
+  }
+}
+
+@media print {
+  .app-content2 {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+  }
+}
+/*CIERRA LO DE ARRIBA*/
 .light-text {
   font-weight: 300 !important;
 }

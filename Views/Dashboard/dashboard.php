@@ -1,5 +1,10 @@
 <?php headerAdmin($data); ?>
-<main class="app-content">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/main.css">
+  <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/style.css">
+</head>
+<main class="app-content2">
   <div class="app-title">
     <div>
       <h1><i class="fa fa-dashboard"></i><?= $data['page_title'] ?></h1>
@@ -9,67 +14,97 @@
       <li class="breadcrumb-item"><a href="<?= base_url(); ?>/dashboard">Eventos Recientes</a></li>
     </ul>
   </div>
-  <div class="row">
-    <div class="col-md-8">
-      <div class="tile">
-        <div class="tile-body blod"><b>NOTICIA INNOVADORA</b></div>
+  <section id="contentbody">
+    <div class="container">
+      <div class="row">
+        <div class=" col-sm-12 col-md-6 col-lg-8">
+          <div class="row">
+            <div class="leftbar_content">
+              <div class="single_stuff wow fadeInDown">
+                <div class="single_stuff_img" align="center"> <a href="pages/single.html"><img src="Assets\images\Evento.jpg" alt=""></a> </div>
+                <div class="single_stuff_article">
+                  <div class="single_sarticle_inner"> <a class="stuff_category" href="#">Technology</a>
+                    <div class="stuff_article_inner"> <span class="stuff_date">Setiem <strong>20</strong></span>
+                      <h2><a href="pages/single.html">¡Participa en la conferencia!</a></h2>
+                      <p>En ese sentido, La Vía Campesina también llama la atención del Ministro del empleo e inserción profesional, y también del Ministro de Agricultura, de la pesca marítima y del desarrollo....</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="single_stuff wow fadeInDown">
+                <div class="single_stuff_img" align="center"> <a href="#"><img src="Assets\images\lucha.jpg" alt=""></a> </div>
+                <div class="single_stuff_article">
+                  <div class="single_sarticle_inner"> <a class="stuff_category" href="#">Technology</a>
+                    <div class="stuff_article_inner"> <span class="stuff_date">Julio <strong>23</strong></span>
+                      <h2><a href="#">¡Veinticinco años de Luchas Campesinas para hacer realidad la Soberanía Alimentaria!</a></h2>
+                      <p>En la Cumbre Mundial de la Alimentación de 1996, La Vía Campesina, planteó su propuesta de “Soberanía Alimentaria” para oponerse al destructivo modelo industrial capitalista que sigue causando hambre, desigualdad ,....</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="single_stuff wow fadeInDown">
+                <div class="single_stuff_img" align="center"> <a href="#"><img src="Assets\images\rondas.jpg" alt=""></a> </div>
+                <div class="single_stuff_article">
+                  <div class="single_sarticle_inner"> <a class="stuff_category" href="#">Technology</a>
+                    <div class="stuff_article_inner"> <span class="stuff_date">Agosto <strong>19</strong></span>
+                      <h2><a href="#">La Vía Campesina se solidariza con FNSA, exige igualdad y reconocimiento de los derechos de los trabajadores agrícolas</a></h2>
+                      <p>La Via Campesina se solidariza con lxs trabajadorxs del sector agrícola que trabajan en las empresas agrícolas, las estaciones de empaquetado así como las industrias alimentarias y de transformación de los productos agrícolas. Ellxs luchan por una vida digna y la justicia social....</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-        <div align="center"><img src="Assets\images\Evento.jpg"></div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="tile">
-        <div class="tile-body blod"><b>INFORMACION</b></div>
-        Puede que la tarea que me he impuesto de escribir una historia completa del pueblo romano desde el comienzo
-        mismo de su existencia me recompense por el trabajo invertido en ella, no lo sé con certeza, ni creo que pueda aventurarlo.
-        mismo de su existencia me recompense por el trabajo invertido en ella, no lo sé con certeza
-        Porque veo que esta es una práctica común y antiguamente establecida, cada nuevo escritor está siempre persuadido de que ni
-        lograrán mayor certidumbre en las materias de su narración, ni superarán la rudeza de la antigüedad en la excelencia de su estilo.
-        Aunque esto sea así, seguirá siendo una gran satisfacción para mí haber tenido mi parte también en investigar, hasta el máximo de mis
-        capacidades, los anales de la nación más importante del mundo, con un interés más profundo; y si en tal conjunto de escritores mi propia
-        reputación resulta ocultada, me consuelo con la fama y la grandeza de aquellos que eclipsen mi fama. El asunto, además, es uno que exige un
-        inmenso trabajo. Se remonta a más de 700 años atrás y, después de un comienzo modesto y humilde, ha crecido a tal magnitud que empieza a ser abrumador
-        por su grandeza. No me cabe duda, tampoco, que para la mayoría de mis lectores los primeros tiempos y los inmediatamente siguientes, tienen poco atractivo;
-        Se apresurarán a estos tiempos modernos en los que el poderío de una nación principal es desgastado por el deterioro interno. Yo, en cambio, buscaré una mayor
-        recompensa a mis trabajos en poder cerrar los ojos ante los males de que nuestra generación ha sido testigo durante tantos años; tanto tiempo, al menos,
-        como estoy dedicando todo mi pensamiento a reproducir los claros registros, libre de toda la ansiedad que pueden perturbar el historiador de su época, aunque
-        no le puedan deformar la verdad.
-        Yo, en cambio, buscaré una mayor
-        <br>
-        <div align="center"><a href="">Dirigir al Anuncio</a></div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-8">
-      <div class="tile">
-        <div class="tile-body blod"><b>EVENTO DE JULIO 2020</b></div>
+            </div>
+            <div class="stuffpost_paginatinonarea wow slideInLeft">
+              <ul class="newstuff_pagnav">
+                <li><a class="active_page" href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li><a href="#">7</a></li>
+                <li><a href="#">8</a></li>
+              </ul>
+            </div>
+          </div>
 
-        <div align="center"><img src="Assets\images\Lucha.jpg"></div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-4">
+          <div class="row">
+            <div class="rightbar_content">
+              <div class="single_blog_sidebar wow fadeInUp">
+                <h2>Otras Noticias</h2>
+                <ul class="featured_nav">
+                  <li> <a class="featured_img" href="#"><img src="Assets\images\reunion.jpg" alt=""></a>
+                    <div class="featured_title"> <a class="" href="#">Reunion de Campesinos - Acuerdos Personales</a> </div>
+                  </li>
+                  <li> <a class="featured_img" href="#"><img src="Assets\images\pandemia.jpg" alt=""></a>
+                    <div class="featured_title"> <a class="" href="#">Pandemia Covid-19 - Noticia Alerta</a> </div>
+                  </li>
+                  <li> <a class="featured_img" href="#"><img src="Assets\images\problemas.jpg" alt=""></a>
+                    <div class="featured_title"> <a class="" href="#">Pobreza Aumenta en las personas de provincia</a> </div>
+                  </li>
+                  <li> <a class="featured_img" href="#"><img src="Assets\images\rondas.jpg" alt=""></a>
+                    <div class="featured_title"> <a class="" href="#">Reunion de Campesinos - Acuerdos Personales</a> </div>
+                  </li>
+                  <li> <a class="featured_img" href="#"><img src="Assets\images\problemas.jpg" alt=""></a>
+                    <div class="featured_title"> <a class="" href="#">Pobreza Aumenta en las personas de provincia</a> </div>
+                  </li>
+                  <li> <a class="featured_img" href="#"><img src="Assets\images\pandemia.jpg" alt=""></a>
+                    <div class="featured_title"> <a class="" href="#">Pandemia Covid-19 - Noticia de Contagiados</a> </div>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
+
     </div>
-    <div class="col-md-4">
-      <div class="tile">
-        <div class="tile-body blod"><b>INFORMACION</b></div>
-        Puede que la tarea que me he impuesto de escribir una historia completa del pueblo romano desde el comienzo
-        mismo de su existencia me recompense por el trabajo invertido en ella, no lo sé con certeza, ni creo que pueda aventurarlo.
-        mismo de su existencia me recompense por el trabajo invertido en ella, no lo sé con certeza
-        Porque veo que esta es una práctica común y antiguamente establecida, cada nuevo escritor está siempre persuadido de que ni
-        lograrán mayor certidumbre en las materias de su narración, ni superarán la rudeza de la antigüedad en la excelencia de su estilo.
-        Aunque esto sea así, seguirá siendo una gran satisfacción para mí haber tenido mi parte también en investigar, hasta el máximo de mis
-        capacidades, los anales de la nación más importante del mundo, con un interés más profundo; y si en tal conjunto de escritores mi propia
-        reputación resulta ocultada, me consuelo con la fama y la grandeza de aquellos que eclipsen mi fama. El asunto, además, es uno que exige un
-        inmenso trabajo. Se remonta a más de 700 años atrás y, después de un comienzo modesto y humilde, ha crecido a tal magnitud que empieza a ser abrumador
-        por su grandeza. No me cabe duda, tampoco, que para la mayoría de mis lectores los primeros tiempos y los inmediatamente siguientes, tienen poco atractivo;
-        Se apresurarán a estos tiempos modernos en los que el poderío de una nación principal es desgastado por el deterioro interno. Yo, en cambio, buscaré una mayor
-        recompensa a mis trabajos en poder cerrar los ojos ante los males de que nuestra generación ha sido testigo durante tantos años; tanto tiempo, al menos,
-        como estoy dedicando todo mi pensamiento a reproducir los claros registros, libre de toda la ansiedad que pueden perturbar el historiador de su época, aunque
-        no le puedan deformar la verdad.
-        Yo, en cambio, buscaré una mayor
-        <br>
-        <div align="center"><a href="">Dirigir al Anuncio</a></div>
-      </div>
-    </div>
-  </div>
+
+  </section>
 </main>
 <?php footerAdmin($data); ?>

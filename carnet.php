@@ -9,10 +9,6 @@ $db = mysqli_connect($servername, $username, $password, $database);
 
 require 'Assets/vendor/autoload.php';
 
-$serial="2004619693";
-$Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
-$code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
-
 ?>
 
 <style>
@@ -124,8 +120,12 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
         <?php  
         $idx = $_GET['id'];
         $sqlmember ="SELECT * FROM persona
-        INNER JOIN rol ON persona.rolid=rol.idrol 
-        INNER JOIN cargo ON rol.idcargo=cargo.idcargo         
+        INNER JOIN rol ON persona.rolid=rol.idrol
+        INNER JOIN cargo ON rol.idcargo=cargo.idcargo
+        INNER JOIN baserondera ON baserondera.id_base=persona.id_base
+        INNER JOIN distrito ON distrito.id_distrito=baserondera.id_distrito
+        INNER JOIN provincia ON provincia.id_provincia=distrito.id_provi
+        INNER JOIN departamento ON departamento.id_depart=provincia.id_depart 
         WHERE idpersona='$idx'";
         $retrieve = mysqli_query($db,$sqlmember);
         $count=0;
@@ -147,6 +147,23 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
           $cargo=$found['nombrerol'];
           $nombres=$found['nombres'];
           $profile;
+
+          $fecha_emision = date("d-m-Y");
+          $fecha_caducidad = date("d-m-Y",strtotime($fecha_emision."+ 2 year"));
+
+          $a = (string)$dni;
+          $codigo = '20' . $a[1] . $a[2] . '567890';
+
+          
+          $Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
+          $code = $Bar->getBarcode($codigo, $Bar::TYPE_CODE_128);
+
+          $departamento = $found['nomb_depart'];
+          $distrito = $found['nomb_distrito'];
+          $provincia = $found['nomb_provincia'];
+          $baserondera = $found['nomb_base'];
+          $direccion = $found['direccionfiscal'];
+
         }             	 	
 			    
 		  ?>
@@ -180,7 +197,7 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
           </p>
         </div>
         <div style="position:absolute; z-index:1000">
-          <p style="font-weight: bold;margin-left: 120px; margin-top:8px; opacity: 1;">Código: 2004619693
+          <p style="font-weight: bold;margin-left: 120px; margin-top:8px; opacity: 1;">Código: <?=$codigo?>
           </p>
 
         </div>
@@ -194,13 +211,13 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
               <td>Fecha de Emisión</td>
             </tr>
             <tr>
-              <td style="font-weight: bold">28 12 2020</td>
+              <td style="font-weight: bold"><?=$fecha_emision?></td>
             </tr>
             <tr>
               <td style="border-top: solid 1px">Fecha Caducidad</td>
             </tr>
             <tr>
-              <td style="color:red; font-weight: bold">05 01 2022</td>
+              <td style="color:red; font-weight: bold"><?=$fecha_caducidad?></td>
             </tr>
           </table>
         </div>
@@ -226,19 +243,19 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
       <div class="container" style="margin-left:120px; margin-top:80px">
         <p style="margin-top:2%">Departamento:</p>
         <p style="font-weight: bold;margin-top:-4%">
-          <?php if(isset($apellidos)){ $namez=$apellidos;echo$namez;} ?></p>
-        <div class="dni" style="margin-left:110px; margin-top:-39px;">
+          <?php if(isset($departamento)){ echo $departamento;} ?></p>
+        <div class="dni" style="margin-left:100px; margin-top:-39px;">
           <p style="">Provincia:</p>
-          <p style="font-weight: bold;margin-top:-6%"><?php if(isset($dni)){ echo$dni;} ?></p>
+          <p style="font-weight: bold;margin-top:-6%"><?php if(isset($provincia)){ echo $provincia;} ?></p>
         </div>
-        <div class="dni" style="margin-left:210px; margin-top:-40.5px;">
+        <div class="dni" style="margin-left:230px; margin-top:-40.5px;">
           <p style="">Distrito:</p>
-          <p style="font-weight: bold;margin-top:-9%"><?php if(isset($dni)){ echo$dni;} ?></p>
+          <p style="font-weight: bold;margin-top:-11%"><?php if(isset($distrito)){ echo$distrito;} ?></p>
         </div>
         <p style="margin-top:-4%">Dirección:</p>
-        <p style="font-weight: bold;margin-top:-4%"><?php if(isset($nombres)){ echo$nombres;} ?></p>
+        <p style="font-weight: bold;margin-top:-4%"><?php if(isset($direccion)){ echo$direccion;} ?></p>
         <p style="margin-top:-4%">Base Rondera:</p>
-        <p style="font-weight: bold;margin-top:-4%"><?php if(isset($cargo)){ echo$cargo;} ?></p>
+        <p style="font-weight: bold;margin-top:-4%"><?php if(isset($baserondera)){ echo$baserondera;} ?></p>
 
         <div style="position:absolute; z-index:1000">
           <p style="font-weight: bold;margin-left: -100px; margin-top:8px; opacity: 1; width:100px">CREDENCIAL REGIONAL

@@ -205,6 +205,17 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
       <img src="Assets/images/carnet/logo.jpg" alt="Avatar" width="90px" height="85px"
         style="margin-top:80px; margin-left:15px; position:absolute;">
 
+      <img src="Assets/images/carnet/logo.jpg" alt="Avatar" width="170px"
+        style="margin-top:30px; margin-left:200px; position:absolute; opacity: 0.3;">
+
+      <img src="Assets/images/carnet/PresidenteCUNARC.jpeg" alt="Avatar" width="90px"
+        style="margin-top:27px; margin-left:40px; position:absolute;">
+      <p style="font-size: 9px; margin-top: 60px; margin-left: 35px; position:absolute;">Presidente CUNARC - PERÚ</p>
+
+      <img src="Assets/images/carnet/Presidentecurerc.jpeg" alt="Avatar" width="90px"
+        style="margin-top:27px; margin-left:190px; position:absolute;">
+      <p style="font-size: 9px; margin-top: 60px; margin-left: 180px; position:absolute;">Presidente CUNARC - PERÚ</p>
+
       <div class="container" style="margin-left:120px; margin-top:80px">
         <p style="margin-top:2%">Departamento:</p>
         <p style="font-weight: bold;margin-top:-4%">

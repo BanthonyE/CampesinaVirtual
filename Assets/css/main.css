@@ -15486,7 +15486,7 @@ be a descendant of the grid when it is being dragged.
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  height: 100vh;
+  overflow-y: auto;
 
   /*background-color: #e5e5e5;*/
   -webkit-transition: margin-left 0.3s ease;

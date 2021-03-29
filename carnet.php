@@ -9,7 +9,7 @@ $db = mysqli_connect($servername, $username, $password, $database);
 
 require 'Assets/vendor/autoload.php';
 
-$serial="0001";
+$serial="2004619693";
 $Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
 $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
 
@@ -39,6 +39,8 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
     transition: 0.4s;
     background-color: #FFFFFF;
     border-radius: 2%;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   #id::before {
@@ -72,7 +74,9 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
     transition: 0.4s;
     background-color: #FFFFFF;
     border-radius: 2%;
-    margin-left: 550px;
+    margin-top: 300px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   #id-1::before {
@@ -98,8 +102,8 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
 </style>
 
 <body>
-  <script type="text/javascript">
-  </script>
+<br>
+  <center><h1 style="color:#fff;">MI CREDENCIAL VIRTUAL</h1></center>
 
   <div id="bg">
     <div id="id">
@@ -154,6 +158,9 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
 
       <div class="container" style="margin-left:135px; margin-top:-128px; font-size:13px;">
 
+        <img src="Assets/images/carnet/logo2.png" alt="Avatar" width="170px"
+          style="margin-top:-46px; margin-left:120px; position:absolute; opacity: 0.3; z-index:1">
+
         <p style="margin-top:2%">Apellidos:</p>
         <p style="font-weight: bold;margin-top:-4%">
           <?php if(isset($apellidos)){ $namez=$apellidos;echo$namez;} ?></p>
@@ -181,7 +188,7 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
           style="width:420px;margin-left: -135px; margin-top:0px; font-size:-10px; background-color: #fff;position:absolute; padding: 15px; opacity: 0.5; ; z-index:1">
         </div>
 
-        <div style="position:abolute; margin-top:-140px; margin-left: 180px;">
+        <div style="position:abolute; margin-top:-140px; margin-left: 180px; z-index:1000">
           <table style="border: solid 1px; width: 125px; font-size: 13px">
             <tr>
               <td>Fecha de Emisión</td>
@@ -234,9 +241,10 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
         <p style="font-weight: bold;margin-top:-4%"><?php if(isset($cargo)){ echo$cargo;} ?></p>
 
         <div style="position:absolute; z-index:1000">
-          <p style="font-weight: bold;margin-left: -100px; margin-top:8px; opacity: 1; width:100px">CREDENCIAL REGIONAL</p>
+          <p style="font-weight: bold;margin-left: -100px; margin-top:8px; opacity: 1; width:100px">CREDENCIAL REGIONAL
+          </p>
         </div>
-        <div style="margin-left: 190px; position:absolute; z-index:1000">        
+        <div style="margin-left: 130px; position:absolute; z-index:1000">
           <p style="opacity: 1;"> <?php if(isset($code)){ echo$code;}?></p>
         </div>
         <div
@@ -247,6 +255,23 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
     </div>
 
   </div>
+  <script>
+    var css = '@page { size: landscape; }',
+      head = document.head || document.getElementsByTagName('head')[0],
+      style = document.createElement('style');
+
+    style.type = 'text/css';
+    style.media = 'print';
+
+    if (style.styleSheet) {
+      style.styleSheet.cssText = css;
+    } else {
+      style.appendChild(document.createTextNode(css));
+    }
+
+    head.appendChild(style);
+    window.print();
+  </script>
 </body>
 
 </html>

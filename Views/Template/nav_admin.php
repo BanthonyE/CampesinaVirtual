@@ -17,16 +17,11 @@
                 </li>
             <?php } ?>
             <?php if (!empty($_SESSION['permisos'][2]['r'])) { ?>
-                <li class="treeview">
-                    <a class="app-menu__item" href="#" data-toggle="treeview">
-                        <i class="app-menu__icon fa fa-users" aria-hidden="true"></i>
+                <li>
+                    <a class="app-menu__item" href="<?= base_url(); ?>/usuarios">
+                        <i class="app-menu__icon fa fa-users"></i>
                         <span class="app-menu__label">Usuarios</span>
-                        <i class="treeview-indicator fa fa-angle-right"></i>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a class="treeview-item" href="<?= base_url(); ?>/usuarios"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
-                        <!-- <li><a class="treeview-item" href="<?= base_url(); ?>/roles"><i class="icon fa fa-circle-o"></i> Roles</a></li> -->
-                    </ul>
                 </li>
             <?php } ?>
             <?php if (!empty($_SESSION['permisos'][3]['r'])) { ?>

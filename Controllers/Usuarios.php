@@ -28,8 +28,21 @@ class Usuarios extends Controllers
 	{
 		if ($_POST) {
 
+
+/* 			Campos Agregados
+			$_POST['txtRepeatPassword']) 
+			$_POST['txtDireccion'])
+			$_POST['listBaseRondera'])
+			$_POST['listDistrito'])
+			$_POST['listProvincia'])
+			$_POST['listDepartamento'])
+			$_POST['filedImagen']) */
+
+			/* if (empty($_POST['txtRepeatPassword']) ||empty($_POST['txtDireccion']) ||empty($_POST['listBaseRondera']) ||empty($_POST['listDistrito']) ||empty($_POST['listProvincia']) ||empty($_POST['listDepartamento']) ||empty($_POST['filedImagen']) || empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listRolid']) || empty($_POST['listStatus'])) { */
 			if (empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listRolid']) || empty($_POST['listStatus'])) {
 				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
+			} elseif ($_POST['txtRepeatPassword'] != $_POST['txtPassword']) {
+				$arrResponse = array("status" => false, "msg" => 'Las claves no coinciden');
 			} else {
 				$idUsuario = intval($_POST['idUsuario']);
 				$strIdentificacion = strClean($_POST['txtIdentificacion']);
@@ -39,6 +52,22 @@ class Usuarios extends Controllers
 				$strEmail = strtolower(strClean($_POST['txtEmail']));
 				$intTipoId = intval(strClean($_POST['listRolid']));
 				$intStatus = intval(strClean($_POST['listStatus']));
+
+				$txtDireccion = intval(strClean($_POST['txtDireccion']));
+				$listBaseRondera = intval(strClean($_POST['listBaseRondera']));
+				$listDistrito = intval(strClean($_POST['listDistrito']));
+				$listProvincia = intval(strClean($_POST['listProvincia']));
+				$listDepartamento = intval(strClean($_POST['listDepartamento']));
+
+				$nombre_foto = $_FILES['filed']['name'];
+				$size_foto = $_FILES['filed']['size'];
+				$tipo_foto = $_FILES['filed']['type'];
+				$temp_foto = $_FILES['filed']['tmp_name'];
+
+				echo json_encode($txtDireccion, JSON_UNESCAPED_UNICODE);
+				die();
+
+				move_uploaded_file($temp_foto, $_SERVER['DOCUMENT_ROOT'] . 'Assets/images/fotos/' . $nombre_foto);
 
 				if ($idUsuario == 0) {
 					$option = 1;

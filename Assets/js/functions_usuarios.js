@@ -223,6 +223,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
 window.addEventListener('load', function() {
         fntRolesUsuario();
+        fntDepartamentoUsuario();
+        fntProvinciaUsuario();
+        fntDistritoUsuario();
+        fntBaseRonderaUsuario();
         /*fntViewUsuario();
         fntEditUsuario();
         fntDelUsuario();*/
@@ -238,6 +242,62 @@ function fntRolesUsuario(){
             if(request.readyState == 4 && request.status == 200){
                 document.querySelector('#listRolid').innerHTML = request.responseText;
                 $('#listRolid').selectpicker('render');
+            }
+        }
+    }
+}
+function fntDepartamentoUsuario(){
+    if(document.querySelector('#listDepartamento')){
+        var ajaxUrl = base_url+'/Ubicacion/getSelectDepartamento';
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        request.open("GET",ajaxUrl,true);
+        request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                document.querySelector('#listDepartamento').innerHTML = request.responseText;
+                $('#listDepartamento').selectpicker('render');
+            }
+        }
+    }
+}
+function fntProvinciaUsuario(){
+    if(document.querySelector('#listProvincia')){
+        var ajaxUrl = base_url+'/Ubicacion/getSelectProvincia';
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        request.open("GET",ajaxUrl,true);
+        request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                document.querySelector('#listProvincia').innerHTML = request.responseText;
+                $('#listProvincia').selectpicker('render');
+            }
+        }
+    }
+}
+function fntDistritoUsuario(){
+    if(document.querySelector('#listDistrito')){
+        var ajaxUrl = base_url+'/Ubicacion/getSelectDistrito';
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        request.open("GET",ajaxUrl,true);
+        request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                document.querySelector('#listDistrito').innerHTML = request.responseText;
+                $('#listDistrito').selectpicker('render');
+            }
+        }
+    }
+}
+function fntBaseRonderaUsuario(){
+    if(document.querySelector('#listBaseRondera')){
+        var ajaxUrl = base_url+'/Ubicacion/getSelectBaseRondera';
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        request.open("GET",ajaxUrl,true);
+        request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState == 4 && request.status == 200){
+                document.querySelector('#listBaseRondera').innerHTML = request.responseText;
+                $('#listBaseRondera').selectpicker('render');
             }
         }
     }

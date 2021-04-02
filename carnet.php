@@ -1,8 +1,8 @@
 <?php 
-$servername = "localhost";
-$database = "db_campesinavirtual";
-$username = "root";
-$password = "";
+$servername = "vkh7buea61avxg07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+$database = "qhrtzyzdmrx5j42u";
+$username = "dnjmxhbd9vepxngn";
+$password = "euouo3jyoy0o5vzj";
 
 $db = mysqli_connect($servername, $username, $password, $database);
 

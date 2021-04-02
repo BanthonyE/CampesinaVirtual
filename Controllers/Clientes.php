@@ -164,7 +164,8 @@ class Clientes extends Controllers
 
 		$_SESSION['datos_carnet'] = $result_carnet;
 
-		header('Location: ' . base_url() . '/carnet.php');
+		header('Location: ' . base_url() . '/Views/Carnets/carnets.php');
 		exit;
+		/* $this->views->getViewCarnet($this, "carnets", $result_carnet); */
 	}
 }

@@ -1,171 +1,263 @@
-<?php
+<?php 
+require '../../Assets/vendor/autoload.php';
 
-include("db_connect.php");
-require "vendor/picqer/php-barcode-generator";
+session_start();
+$found = $_SESSION['datos_carnet'];
 
-$serial="0001";
+$apellidos=$found['apellidos'];
+$dni=$found['identificacion'];
+$tipoCargo=$found['descrip'];
+$contact="anthony@gmail.com";
+$get_time="11";
+$time=time();
+$cargo=$found['nombrerol'];
+$nombres=$found['nombres'];
+$profile;
+
+$fecha_emision = date("d-m-Y");
+$fecha_caducidad = date("d-m-Y",strtotime($fecha_emision."+ 2 year"));
+
+$a = (string)$dni;
+$codigo = '20' . $a[1] . $a[2] . '567890';
+
+
 $Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
-$code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
+$code = $Bar->getBarcode($codigo, $Bar::TYPE_CODE_128);
+
+$departamento = $found['nomb_depart'];
+$distrito = $found['nomb_distrito'];
+$provincia = $found['nomb_provincia'];
+$baserondera = $found['nomb_base'];
+$direccion = $found['direccionfiscal'];
 
 ?>
 
 <style>
-    body {
-        background: #008080;
-    }
+  body {
+    background: #008080;
+  }
 
-    #bg {
-        width: 1000px;
-        height: 450px;
+  #bg {
+    width: 1000px;
+    height: 450px;
 
-        margin: 60px;
-        float: left;
+    margin: 60px;
+    float: left;
 
-    }
+  }
 
-    #id {
-        width: 250px;
-        height: 450px;
-        position: absolute;
-        opacity: 0.88;
-        font-family: sans-serif;
+  #id {
+    width: 450px;
+    height: 250px;
+    position: absolute;
+    opacity: 0.88;
+    font-family: sans-serif;
 
-        transition: 0.4s;
-        background-color: #FFFFFF;
-        border-radius: 2%;
-    }
+    transition: 0.4s;
+    background-color: #FFFFFF;
+    border-radius: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-    #id::before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: url('images/malawi.png');
-        /*if you want to change the background image replace logo.png*/
-        background-repeat: repeat-x;
-        background-size: 250px 450px;
-        opacity: 0.2;
-        z-index: -1;
-        text-align: center;
+  #id::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('Assets/images/carnet/fondo-carnet.png');
+    /*if you want to change the background image replace logo.png*/
+    background-repeat: repeat-x;
+    background-size: 250px 450px;
+    opacity: 0.6;
+    z-index: -1;
+    text-align: center;
 
-    }
+  }
 
-    .container {
-        font-size: 12px;
-        font-family: sans-serif;
+  .container {
+    font-size: 12px;
+    font-family: sans-serif;
 
-    }
+  }
 
-    .id-1 {
-        transition: 0.4s;
-        width: 250px;
-        height: 450px;
-        background: #FFFFFF;
-        text-align: center;
-        font-size: 16px;
-        font-family: sans-serif;
-        float: left;
-        margin: auto;
-        margin-left: 270px;
-        border-radius: 2%;
+  .id-1 {
+    width: 450px;
+    height: 250px;
+    position: absolute;
+    opacity: 0.88;
+    font-family: sans-serif;
 
+    transition: 0.4s;
+    background-color: #FFFFFF;
+    border-radius: 2%;
+    margin-top: 300px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-    }
+  #id-1::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('Assets/images/carnet/fondo-carnet.png');
+    /*if you want to change the background image replace logo.png*/
+    background-repeat: repeat-x;
+    background-size: 250px 450px;
+    opacity: 0.6;
+    z-index: -1;
+    text-align: center;
+  }
+
+  h3.titulo {
+    font-size: 12px;
+    color: #000;
+    margin-bottom: -10px;
+    padding-bottom: -10px;
+  }
 </style>
-<?php 
-  $db = new mysqli("vkh7buea61avxg07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com","dnjmxhbd9vepxngn","euouo3jyoy0o5vzj");
-  if($db->connect_errno > 0){
-    die('Unable to connect to database [' . $db->connect_error . ']');  
-  }   
-?>
 
 <body>
-    <script type="text/javascript">
-    </script>
+<br>
+  <center><h1 style="color:#fff;">MI CREDENCIAL VIRTUAL</h1></center>
 
-    <div id="bg">
-        <div id="id">
-            <table>
-                <tr>
-                    <td>
-                        
-                        <img src="images/carnet/love.png" alt="Avatar" width="70px" height="70px"> <?php ?>
-                    </td>
-                    <td>
-                        <h3><b>THE STATE GOVERNMENT OF MALAWI</b></h3>
-                    </td>
-                </tr>
-            </table>
+  <div id="bg">
+    <div id="id">
+      <table>
+        <tr>
+          <td>
+            <img class="logo-nacional" src="Assets/images/carnet/escudo.png" alt="Avatar" width="50px" height="50px">
+          </td>
+          <td>
+            <h3 class="titulo"><b>CENTRAL ÚNICA REGIONAL DE RONDAS CAMPESINAS</b></h3>
             <center>
-                <?php  
-     $idx = $_GET['id'];
-      $sqlmember ="SELECT * FROM persona WHERE id='$idx' ";
-			$retrieve = mysqli_query($db,$sqlmember);
-			$count=0;
-      while($found = mysqli_fetch_array($retrieve)){
-/*         $title=$found['Mtitle'];$firstname=$found['Firstname'];$sirname=$found['Sirname'];$rank=$found['Rank'];
-        $id=$found['id'];$dept=$found['Department'];$contact=$found['Email'];
-        $count=$count+1;  $get_time=$found['Time']; $time=time(); $pass=$found['Staffid'];
-        $names=$firstname." ".$sirname;
-        $profile= $found['Picname']; */
-        $title="Mr. ";
-        $firstname="Mario";
-        $sirname="Centeno";
-        $rank="1";
-        $id="1";
-        $dept="Lima";
-        $contact="centenovargasmarioluis@gmail.com";
-        $count=$count+1;
-        $get_time="11";
-        $time=time();
-        $pass="a";
-        $names="aaaa vvv";
-        $profile;
-      }  	 
-
-             	 	
-             	 	if($profile!=""){          
-										   echo"<img src='images/$profile' height='175px' width='200px' alt='' style='border: 2px solid black;'>";	   
-									    }
-								else{
-									echo"<img src='admin/images/profile.jpg' height='175px' width='200px' alt='' style='border: 2px solid black;'>";	   
-														     	
-									} 
-             	 	 ?> </center>
-            <div class="container" align="center">
-
-                <p style="margin-top:2%">Name</p>
-                <p style="font-weight: bold;margin-top:-4%">
-                    <?php if(isset($names)){ $namez=$title.' '.$names;echo$namez;} ?></p>
-                <p style="margin-top:-4%">Rank</p>
-                <p style="font-weight: bold;margin-top:-4%"><?php if(isset($rank)){ echo$rank;} ?></p>
-                <p style="margin-top:-4%">STAFF ID:</p>
-                <p style="font-weight: bold;margin-top:-4%"><?php if(isset($pass)){ echo$pass;} ?></p>
-                <p style="margin-top:-4%">MINISTRY/DEARTMENT:</p>
-                <p style="font-weight: bold;margin-top:-4%"><?php if(isset($dept)){ echo$dept;} ?></p>
-                <p style="margin-top:-4%">HOLDER SIGNATURE</p>
-
-            </div>
-        </div>
-        <div class="id-1">
-
-            <center><img src="images/malawi.png" alt="Avatar" width="200px" height="175px">
-                <div class="container" align="center">
-                    <p style="margin:auto">The bearer whose photograph appears overleaf is a staff of</p>
-                    <h2 style="color:#00BFFF;margin-left:2%">THE STATE GOVERNMENT OF MALAWI </h2>
-                    <p style="margin:auto">If lost and found please return to the nearest police station</p>
-                    <hr align="center" style="border: 1px solid black;width:80%;margin-top:13%">
-                    </hr>
-
-                    <p align="center" style="margin-top:-2%">Authorised Signature</p>
-                    <p> <?php if(isset($code)){ echo$code;}?>
-                    </p>
-                    <?php if(isset($name)){ echo"Property of ".$name;}?>
+              <h3 class="titulo"><b>LA LIBERTAD</b></h3>
             </center>
+          </td>
+        </tr>
+      </table>
+
+      <?php 
+        echo"<img src='Assets/images/carnet/avatar.jpg' height='120px' width='110px' alt='' style='margin-left:10px; margin-top:15px;'>";	 
+      ?>
+
+      <div class="container" style="margin-left:135px; margin-top:-128px; font-size:13px;">
+
+        <img src="Assets/images/carnet/logo2.png" alt="Avatar" width="170px"
+          style="margin-top:-46px; margin-left:120px; position:absolute; opacity: 0.3; z-index:1">
+
+        <p style="margin-top:2%">Apellidos:</p>
+        <p style="font-weight: bold;margin-top:-4%">
+          <?php if(isset($apellidos)){ $namez=$apellidos;echo$namez;} ?></p>
+        <p style="margin-top:-4%">Nombres:</p>
+        <p style="font-weight: bold;margin-top:-4%"><?php if(isset($nombres)){ echo$nombres;} ?></p>
+        <p style="margin-top:-4%">Cargo:</p>
+        <p style="font-weight: bold;margin-top:-4%"><?php if(isset($cargo)){ echo$cargo;} ?></p>
+        <p style="margin-top:-4%">Tipo Cargo:</p>
+        <p style="font-weight: bold;margin-top:-4%"><?php if(isset($tipoCargo)){ echo$tipoCargo;} ?></p>
+        <div class="dni" style="margin-left:135px; margin-top:-45px;">
+          <p style="">Dni:</p>
+          <p style="font-weight: bold;margin-top:-6%"><?php if(isset($dni)){ echo$dni;} ?></p>
         </div>
+
+        <div style="position:absolute; z-index:1000">
+          <p style="font-weight: bold;margin-left: -120px; margin-top:8px; opacity: 1;">CREDENCIAL <?=$tipoCargo?>
+          </p>
+        </div>
+        <div style="position:absolute; z-index:1000">
+          <p style="font-weight: bold;margin-left: 120px; margin-top:8px; opacity: 1;">Código: <?=$codigo?>
+          </p>
+
+        </div>
+        <div
+          style="width:420px;margin-left: -135px; margin-top:0px; font-size:-10px; background-color: #fff;position:absolute; padding: 15px; opacity: 0.5; ; z-index:1">
+        </div>
+
+        <div style="position:abolute; margin-top:-140px; margin-left: 180px; z-index:1000">
+          <table style="border: solid 1px; width: 125px; font-size: 13px">
+            <tr>
+              <td>Fecha de Emisión</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold"><?=$fecha_emision?></td>
+            </tr>
+            <tr>
+              <td style="border-top: solid 1px">Fecha Caducidad</td>
+            </tr>
+            <tr>
+              <td style="color:red; font-weight: bold"><?=$fecha_caducidad?></td>
+            </tr>
+          </table>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="id-1">
+      <img src="Assets/images/carnet/logo.jpg" alt="Avatar" width="90px" height="85px"
+        style="margin-top:80px; margin-left:15px; position:absolute;">
+
+      <img src="Assets/images/carnet/logo.jpg" alt="Avatar" width="170px"
+        style="margin-top:30px; margin-left:200px; position:absolute; opacity: 0.3;">
+
+      <img src="Assets/images/carnet/PresidenteCUNARC.jpeg" alt="Avatar" width="90px"
+        style="margin-top:27px; margin-left:40px; position:absolute;">
+      <p style="font-size: 9px; margin-top: 60px; margin-left: 35px; position:absolute;">Presidente CUNARC - PERÚ</p>
+
+      <img src="Assets/images/carnet/Presidentecurerc.jpeg" alt="Avatar" width="90px"
+        style="margin-top:27px; margin-left:190px; position:absolute;">
+      <p style="font-size: 9px; margin-top: 60px; margin-left: 180px; position:absolute;">Presidente CUNARC - PERÚ</p>
+
+      <div class="container" style="margin-left:120px; margin-top:80px">
+        <p style="margin-top:2%">Departamento:</p>
+        <p style="font-weight: bold;margin-top:-4%">
+          <?php if(isset($departamento)){ echo $departamento;} ?></p>
+        <div class="dni" style="margin-left:100px; margin-top:-39px;">
+          <p style="">Provincia:</p>
+          <p style="font-weight: bold;margin-top:-6%"><?php if(isset($provincia)){ echo $provincia;} ?></p>
+        </div>
+        <div class="dni" style="margin-left:230px; margin-top:-40.5px;">
+          <p style="">Distrito:</p>
+          <p style="font-weight: bold;margin-top:-11%"><?php if(isset($distrito)){ echo$distrito;} ?></p>
+        </div>
+        <p style="margin-top:-4%">Dirección:</p>
+        <p style="font-weight: bold;margin-top:-4%"><?php if(isset($direccion)){ echo$direccion;} ?></p>
+        <p style="margin-top:-4%">Base Rondera:</p>
+        <p style="font-weight: bold;margin-top:-4%"><?php if(isset($baserondera)){ echo$baserondera;} ?></p>
+
+        <div style="position:absolute; z-index:1000">
+          <p style="font-weight: bold;margin-left: -100px; margin-top:8px; opacity: 1; width:100px">CREDENCIAL REGIONAL
+          </p>
+        </div>
+        <div style="margin-left: 130px; position:absolute; z-index:1000">
+          <p style="opacity: 1;"> <?php if(isset($code)){ echo$code;}?></p>
+        </div>
+        <div
+          style="width:400px;margin-left: -120px; margin-top:0px; font-size:-10px; background-color: #000;position:absolute; padding: 25px; opacity: 0.5; ; z-index:1">
+        </div>
+
+      </div>
     </div>
 
-    </div>
+  </div>
+  <script>
+    var css = '@page { size: landscape; }',
+      head = document.head || document.getElementsByTagName('head')[0],
+      style = document.createElement('style');
+
+    style.type = 'text/css';
+    style.media = 'print';
+
+    if (style.styleSheet) {
+      style.styleSheet.cssText = css;
+    } else {
+      style.appendChild(document.createTextNode(css));
+    }
+
+    head.appendChild(style);
+    window.print();
+  </script>
 </body>
 
 </html>

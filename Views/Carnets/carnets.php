@@ -73,7 +73,7 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
     }
 </style>
 <?php 
-  $db = new mysqli("localhost","root","");
+  $db = new mysqli("vkh7buea61avxg07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com","dnjmxhbd9vepxngn","euouo3jyoy0o5vzj");
   if($db->connect_errno > 0){
     die('Unable to connect to database [' . $db->connect_error . ']');  
   }   
@@ -89,7 +89,7 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
                 <tr>
                     <td>
                         
-                        <img src="images/love.png" alt="Avatar" width="70px" height="70px"> <?php }?>
+                        <img src="images/carnet/love.png" alt="Avatar" width="70px" height="70px"> <?php ?>
                     </td>
                     <td>
                         <h3><b>THE STATE GOVERNMENT OF MALAWI</b></h3>
@@ -109,12 +109,12 @@ $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128);
         $names=$firstname." ".$sirname;
         $profile= $found['Picname']; */
         $title="Mr. ";
-        $firstname="Anthony";
-        $sirname="Enciso";
+        $firstname="Mario";
+        $sirname="Centeno";
         $rank="1";
         $id="1";
         $dept="Lima";
-        $contact="anthony@gmail.com";
+        $contact="centenovargasmarioluis@gmail.com";
         $count=$count+1;
         $get_time="11";
         $time=time();

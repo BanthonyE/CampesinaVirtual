@@ -106,14 +106,6 @@
               <td id="celEmail">Larry</td>
             </tr>
             <tr>
-              <td>Identificación Tributaria:</td>
-              <td id="celIde">Larry</td>
-            </tr>
-            <tr>
-              <td>Nombre Fiscal:</td>
-              <td id="celNomFiscal">Larry</td>
-            </tr>
-            <tr>
               <td>Dirección Fiscal:</td>
               <td id="celDirFiscal">Larry</td>
             </tr>

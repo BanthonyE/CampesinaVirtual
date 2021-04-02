@@ -1,60 +1,75 @@
 var tableUsuarios;
 var divLoading = document.querySelector("#divLoading");
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function () {
 
-    tableUsuarios = $('#tableUsuarios').dataTable( {
-        "aProcessing":true,
-        "aServerSide":true,
+    tableUsuarios = $('#tableUsuarios').dataTable({
+        "aProcessing": true,
+        "aServerSide": true,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
         },
-        "ajax":{
-            "url": " "+base_url+"/Usuarios/getUsuarios",
-            "dataSrc":""
+        "ajax": {
+            "url": " " + base_url + "/Usuarios/getUsuarios",
+            "dataSrc": ""
         },
-        "columns":[
-            {"data":"idpersona"},
-            {"data":"nombres"},
-            {"data":"apellidos"},
-            {"data":"email_user"},
-            {"data":"telefono"},
-            {"data":"nombrerol"},
-            {"data":"status"},
-            {"data":"options"}
-        ],
-        'dom': 'lBfrtip',
-        'buttons': [
+        "columns": [{
+                "data": "idpersona"
+            },
             {
-                "extend": "copyHtml5",
-                "text": "<i class='far fa-copy'></i> Copiar",
-                "titleAttr":"Copiar",
-                "className": "btn btn-secondary"
-            },{
-                "extend": "excelHtml5",
-                "text": "<i class='fas fa-file-excel'></i> Excel",
-                "titleAttr":"Esportar a Excel",
-                "className": "btn btn-success"
-            },{
-                "extend": "pdfHtml5",
-                "text": "<i class='fas fa-file-pdf'></i> PDF",
-                "titleAttr":"Esportar a PDF",
-                "className": "btn btn-danger"
-            },{
-                "extend": "csvHtml5",
-                "text": "<i class='fas fa-file-csv'></i> CSV",
-                "titleAttr":"Esportar a CSV",
-                "className": "btn btn-info"
+                "data": "nombres"
+            },
+            {
+                "data": "apellidos"
+            },
+            {
+                "data": "email_user"
+            },
+            {
+                "data": "telefono"
+            },
+            {
+                "data": "nombrerol"
+            },
+            {
+                "data": "status"
+            },
+            {
+                "data": "options"
             }
         ],
-        "resonsieve":"true",
+        'dom': 'lBfrtip',
+        'buttons': [{
+            "extend": "copyHtml5",
+            "text": "<i class='far fa-copy'></i> Copiar",
+            "titleAttr": "Copiar",
+            "className": "btn btn-secondary"
+        }, {
+            "extend": "excelHtml5",
+            "text": "<i class='fas fa-file-excel'></i> Excel",
+            "titleAttr": "Esportar a Excel",
+            "className": "btn btn-success"
+        }, {
+            "extend": "pdfHtml5",
+            "text": "<i class='fas fa-file-pdf'></i> PDF",
+            "titleAttr": "Esportar a PDF",
+            "className": "btn btn-danger"
+        }, {
+            "extend": "csvHtml5",
+            "text": "<i class='fas fa-file-csv'></i> CSV",
+            "titleAttr": "Esportar a CSV",
+            "className": "btn btn-info"
+        }],
+        "resonsieve": "true",
         "bDestroy": true,
         "iDisplayLength": 10,
-        "order":[[0,"desc"]]  
+        "order": [
+            [0, "desc"]
+        ]
     });
 
-    if(document.querySelector("#formUsuario")){
+    if (document.querySelector("#formUsuario")) {
         var formUsuario = document.querySelector("#formUsuario");
-        formUsuario.onsubmit = function(e) {
+        formUsuario.onsubmit = function (e) {
             e.preventDefault();
             var strIdentificacion = document.querySelector('#txtIdentificacion').value;
             var strNombre = document.querySelector('#txtNombre').value;
@@ -64,25 +79,29 @@ document.addEventListener('DOMContentLoaded', function(){
             var intTipousuario = document.querySelector('#listRolid').value;
             var strPassword = document.querySelector('#txtPassword').value;
 
-            if(strIdentificacion == '' || strApellido == '' || strNombre == '' || strEmail == '' || intTelefono == '' || intTipousuario == '')
-            {
-                swal("Atención", "Todos los campos son obligatorios." , "error");
+            if (strIdentificacion == '' || strApellido == '' || strNombre == '' || strEmail == '' || intTelefono == '' || intTipousuario == '') {
+                swal("Atención", "Todos los campos son obligatorios.", "error");
                 return false;
             }
 
             let elementsValid = document.getElementsByClassName("valid");
-            for (let i = 0; i < elementsValid.length; i++) { 
-                if(elementsValid[i].classList.contains('is-invalid')) { 
-                    swal("Atención", "Por favor verifique los campos en rojo." , "error");
+            for (let i = 0; i < elementsValid.length; i++) {
+                if (elementsValid[i].classList.contains('is-invalid')) {
+                    swal("Atención", "Por favor verifique los campos en rojo.", "error");
                     return false;
-                } 
-            } 
+                }
+            }
+
             divLoading.style.display = "flex";
+
+            /*             
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             var ajaxUrl = base_url+'/Usuarios/setUsuario'; 
             var formData = new FormData(formUsuario);
             request.open("POST",ajaxUrl,true);
+            request.setRequestHeader('Content-Type', 'multipart/form-data');
             request.send(formData);
+
             request.onreadystatechange = function(){
                 if(request.readyState == 4 && request.status == 200){
                     var objData = JSON.parse(request.responseText);
@@ -98,13 +117,41 @@ document.addEventListener('DOMContentLoaded', function(){
                 }
                 divLoading.style.display = "none";
                 return false;
-            }
+            } 
+            */
+
+            var ajaxUrl = base_url+'/Usuarios/setUsuario';
+            var formData = new FormData($("#formUsuario").get(0));
+            $.ajax({
+                type: 'POST',
+                url: ajaxUrl,
+                data: formData,                
+                contentType: false,
+                processData: false,
+                success: function (objData) {
+                    if (objData) {
+                        /* alert(respuesta); */
+                        
+                        $('#modalFormUsuario').modal("hide");
+                        formUsuario.reset();
+                        swal("Usuarios", objData.msg ,"success");
+                        tableUsuarios.api().ajax.reload();                        
+                    } else {
+                        /* alert('ERROR'); */
+                        swal("Error", objData.msg , "error");
+                    }
+                    divLoading.style.display = "none";
+                    return false;
+                }
+            });
+
+
         }
     }
     //Actualizar Perfil
-    if(document.querySelector("#formPerfil")){
+    if (document.querySelector("#formPerfil")) {
         var formPerfil = document.querySelector("#formPerfil");
-        formPerfil.onsubmit = function(e) {
+        formPerfil.onsubmit = function (e) {
             e.preventDefault();
             var strIdentificacion = document.querySelector('#txtIdentificacion').value;
             var strNombre = document.querySelector('#txtNombre').value;
@@ -113,43 +160,40 @@ document.addEventListener('DOMContentLoaded', function(){
             var strPassword = document.querySelector('#txtPassword').value;
             var strPasswordConfirm = document.querySelector('#txtPasswordConfirm').value;
 
-            if(strIdentificacion == '' || strApellido == '' || strNombre == '' || intTelefono == '' )
-            {
-                swal("Atención", "Todos los campos son obligatorios." , "error");
+            if (strIdentificacion == '' || strApellido == '' || strNombre == '' || intTelefono == '') {
+                swal("Atención", "Todos los campos son obligatorios.", "error");
                 return false;
             }
 
-            if(strPassword != "" || strPasswordConfirm != "")
-            {   
-                if( strPassword != strPasswordConfirm ){
-                    swal("Atención", "Las contraseñas no son iguales." , "info");
+            if (strPassword != "" || strPasswordConfirm != "") {
+                if (strPassword != strPasswordConfirm) {
+                    swal("Atención", "Las contraseñas no son iguales.", "info");
                     return false;
-                }           
-                if(strPassword.length < 5 ){
-                    swal("Atención", "La contraseña debe tener un mínimo de 5 caracteres." , "info");
+                }
+                if (strPassword.length < 5) {
+                    swal("Atención", "La contraseña debe tener un mínimo de 5 caracteres.", "info");
                     return false;
                 }
             }
 
             let elementsValid = document.getElementsByClassName("valid");
-            for (let i = 0; i < elementsValid.length; i++) { 
-                if(elementsValid[i].classList.contains('is-invalid')) { 
-                    swal("Atención", "Por favor verifique los campos en rojo." , "error");
+            for (let i = 0; i < elementsValid.length; i++) {
+                if (elementsValid[i].classList.contains('is-invalid')) {
+                    swal("Atención", "Por favor verifique los campos en rojo.", "error");
                     return false;
-                } 
-            } 
+                }
+            }
             divLoading.style.display = "flex";
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            var ajaxUrl = base_url+'/Usuarios/putPerfil'; 
+            var ajaxUrl = base_url + '/Usuarios/putPerfil';
             var formData = new FormData(formPerfil);
-            request.open("POST",ajaxUrl,true);
+            request.open("POST", ajaxUrl, true);
             request.send(formData);
-            request.onreadystatechange = function(){
-                if(request.readyState != 4 ) return; 
-                if(request.status == 200){
+            request.onreadystatechange = function () {
+                if (request.readyState != 4) return;
+                if (request.status == 200) {
                     var objData = JSON.parse(request.responseText);
-                    if(objData.status)
-                    {
+                    if (objData.status) {
                         $('#modalFormPerfil').modal("hide");
                         swal({
                             title: "",
@@ -157,13 +201,13 @@ document.addEventListener('DOMContentLoaded', function(){
                             type: "success",
                             confirmButtonText: "Aceptar",
                             closeOnConfirm: false,
-                        }, function(isConfirm) {
+                        }, function (isConfirm) {
                             if (isConfirm) {
                                 location.reload();
                             }
                         });
-                    }else{
-                        swal("Error", objData.msg , "error");
+                    } else {
+                        swal("Error", objData.msg, "error");
                     }
                 }
                 divLoading.style.display = "none";
@@ -172,31 +216,29 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     }
     //Actualizar Datos Fiscales
-    if(document.querySelector("#formDataFiscal")){
+    if (document.querySelector("#formDataFiscal")) {
         var formDataFiscal = document.querySelector("#formDataFiscal");
-        formDataFiscal.onsubmit = function(e) {
+        formDataFiscal.onsubmit = function (e) {
             e.preventDefault();
             var strNit = document.querySelector('#txtNit').value;
             var strNombreFiscal = document.querySelector('#txtNombreFiscal').value;
             var strDirFiscal = document.querySelector('#txtDirFiscal').value;
-           
-            if(strNit == '' || strNombreFiscal == '' || strDirFiscal == '' )
-            {
-                swal("Atención", "Todos los campos son obligatorios." , "error");
+
+            if (strNit == '' || strNombreFiscal == '' || strDirFiscal == '') {
+                swal("Atención", "Todos los campos son obligatorios.", "error");
                 return false;
             }
             divLoading.style.display = "flex";
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            var ajaxUrl = base_url+'/Usuarios/putDFical'; 
+            var ajaxUrl = base_url + '/Usuarios/putDFical';
             var formData = new FormData(formDataFiscal);
-            request.open("POST",ajaxUrl,true);
+            request.open("POST", ajaxUrl, true);
             request.send(formData);
-            request.onreadystatechange = function(){
-                if(request.readyState != 4 ) return; 
-                if(request.status == 200){
+            request.onreadystatechange = function () {
+                if (request.readyState != 4) return;
+                if (request.status == 200) {
                     var objData = JSON.parse(request.responseText);
-                    if(objData.status)
-                    {
+                    if (objData.status) {
                         $('#modalFormPerfil').modal("hide");
                         swal({
                             title: "",
@@ -204,13 +246,13 @@ document.addEventListener('DOMContentLoaded', function(){
                             type: "success",
                             confirmButtonText: "Aceptar",
                             closeOnConfirm: false,
-                        }, function(isConfirm) {
+                        }, function (isConfirm) {
                             if (isConfirm) {
                                 location.reload();
                             }
                         });
-                    }else{
-                        swal("Error", objData.msg , "error");
+                    } else {
+                        swal("Error", objData.msg, "error");
                     }
                 }
                 divLoading.style.display = "none";
@@ -221,81 +263,85 @@ document.addEventListener('DOMContentLoaded', function(){
 }, false);
 
 
-window.addEventListener('load', function() {
-        fntRolesUsuario();
-        fntDepartamentoUsuario();
-        fntProvinciaUsuario();
-        fntDistritoUsuario();
-        fntBaseRonderaUsuario();
-        /*fntViewUsuario();
-        fntEditUsuario();
-        fntDelUsuario();*/
+window.addEventListener('load', function () {
+    fntRolesUsuario();
+    fntDepartamentoUsuario();
+    fntProvinciaUsuario();
+    fntDistritoUsuario();
+    fntBaseRonderaUsuario();
+    /*fntViewUsuario();
+    fntEditUsuario();
+    fntDelUsuario();*/
 }, false);
 
-function fntRolesUsuario(){
-    if(document.querySelector('#listRolid')){
-        var ajaxUrl = base_url+'/Roles/getSelectRoles';
+function fntRolesUsuario() {
+    if (document.querySelector('#listRolid')) {
+        var ajaxUrl = base_url + '/Roles/getSelectRoles';
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        request.open("GET",ajaxUrl,true);
+        request.open("GET", ajaxUrl, true);
         request.send();
-        request.onreadystatechange = function(){
-            if(request.readyState == 4 && request.status == 200){
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
                 document.querySelector('#listRolid').innerHTML = request.responseText;
                 $('#listRolid').selectpicker('render');
             }
         }
     }
 }
-function fntDepartamentoUsuario(){
-    if(document.querySelector('#listDepartamento')){
-        var ajaxUrl = base_url+'/Ubicacion/getSelectDepartamento';
+
+function fntDepartamentoUsuario() {
+    if (document.querySelector('#listDepartamento')) {
+        var ajaxUrl = base_url + '/Ubicacion/getSelectDepartamento';
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        request.open("GET",ajaxUrl,true);
+        request.open("GET", ajaxUrl, true);
         request.send();
-        request.onreadystatechange = function(){
-            if(request.readyState == 4 && request.status == 200){
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
                 document.querySelector('#listDepartamento').innerHTML = request.responseText;
                 $('#listDepartamento').selectpicker('render');
             }
         }
     }
 }
-function fntProvinciaUsuario(){
-    if(document.querySelector('#listProvincia')){
-        var ajaxUrl = base_url+'/Ubicacion/getSelectProvincia';
+
+function fntProvinciaUsuario() {
+    if (document.querySelector('#listProvincia')) {
+        var ajaxUrl = base_url + '/Ubicacion/getSelectProvincia';
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        request.open("GET",ajaxUrl,true);
+        request.open("GET", ajaxUrl, true);
         request.send();
-        request.onreadystatechange = function(){
-            if(request.readyState == 4 && request.status == 200){
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
                 document.querySelector('#listProvincia').innerHTML = request.responseText;
                 $('#listProvincia').selectpicker('render');
             }
         }
     }
 }
-function fntDistritoUsuario(){
-    if(document.querySelector('#listDistrito')){
-        var ajaxUrl = base_url+'/Ubicacion/getSelectDistrito';
+
+function fntDistritoUsuario() {
+    if (document.querySelector('#listDistrito')) {
+        var ajaxUrl = base_url + '/Ubicacion/getSelectDistrito';
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        request.open("GET",ajaxUrl,true);
+        request.open("GET", ajaxUrl, true);
         request.send();
-        request.onreadystatechange = function(){
-            if(request.readyState == 4 && request.status == 200){
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
                 document.querySelector('#listDistrito').innerHTML = request.responseText;
                 $('#listDistrito').selectpicker('render');
             }
         }
     }
 }
-function fntBaseRonderaUsuario(){
-    if(document.querySelector('#listBaseRondera')){
-        var ajaxUrl = base_url+'/Ubicacion/getSelectBaseRondera';
+
+function fntBaseRonderaUsuario() {
+    if (document.querySelector('#listBaseRondera')) {
+        var ajaxUrl = base_url + '/Ubicacion/getSelectBaseRondera';
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        request.open("GET",ajaxUrl,true);
+        request.open("GET", ajaxUrl, true);
         request.send();
-        request.onreadystatechange = function(){
-            if(request.readyState == 4 && request.status == 200){
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
                 document.querySelector('#listBaseRondera').innerHTML = request.responseText;
                 $('#listBaseRondera').selectpicker('render');
             }
@@ -303,21 +349,20 @@ function fntBaseRonderaUsuario(){
     }
 }
 
-function fntViewUsuario(idpersona){
+function fntViewUsuario(idpersona) {
     var idpersona = idpersona;
     var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    var ajaxUrl = base_url+'/Usuarios/getUsuario/'+idpersona;
-    request.open("GET",ajaxUrl,true);
+    var ajaxUrl = base_url + '/Usuarios/getUsuario/' + idpersona;
+    request.open("GET", ajaxUrl, true);
     request.send();
-    request.onreadystatechange = function(){
-        if(request.readyState == 4 && request.status == 200){
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
             var objData = JSON.parse(request.responseText);
 
-            if(objData.status)
-            {
-               var estadoUsuario = objData.data.status == 1 ? 
-                '<span class="badge badge-success">Activo</span>' : 
-                '<span class="badge badge-danger">Inactivo</span>';
+            if (objData.status) {
+                var estadoUsuario = objData.data.status == 1 ?
+                    '<span class="badge badge-success">Activo</span>' :
+                    '<span class="badge badge-danger">Inactivo</span>';
 
                 document.querySelector("#celIdentificacion").innerHTML = objData.data.identificacion;
                 document.querySelector("#celNombre").innerHTML = objData.data.nombres;
@@ -326,56 +371,55 @@ function fntViewUsuario(idpersona){
                 document.querySelector("#celEmail").innerHTML = objData.data.email_user;
                 document.querySelector("#celTipoUsuario").innerHTML = objData.data.nombrerol;
                 document.querySelector("#celEstado").innerHTML = estadoUsuario;
-                document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro; 
+                document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro;
                 $('#modalViewUser').modal('show');
-            }else{
-                swal("Error", objData.msg , "error");
+            } else {
+                swal("Error", objData.msg, "error");
             }
         }
     }
 }
 
-function fntEditUsuario(idpersona){
-    document.querySelector('#titleModal').innerHTML ="Actualizar Usuario";
+function fntEditUsuario(idpersona) {
+    document.querySelector('#titleModal').innerHTML = "Actualizar Usuario";
     document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
-    document.querySelector('#btnText').innerHTML ="Actualizar";
+    document.querySelector('#btnText').innerHTML = "Actualizar";
 
-    var idpersona =idpersona;
+    var idpersona = idpersona;
     var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    var ajaxUrl = base_url+'/Usuarios/getUsuario/'+idpersona;
-    request.open("GET",ajaxUrl,true);
+    var ajaxUrl = base_url + '/Usuarios/getUsuario/' + idpersona;
+    request.open("GET", ajaxUrl, true);
     request.send();
-    request.onreadystatechange = function(){
+    request.onreadystatechange = function () {
 
-        if(request.readyState == 4 && request.status == 200){
+        if (request.readyState == 4 && request.status == 200) {
             var objData = JSON.parse(request.responseText);
 
-            if(objData.status)
-            {
+            if (objData.status) {
                 document.querySelector("#idUsuario").value = objData.data.idpersona;
                 document.querySelector("#txtIdentificacion").value = objData.data.identificacion;
                 document.querySelector("#txtNombre").value = objData.data.nombres;
                 document.querySelector("#txtApellido").value = objData.data.apellidos;
                 document.querySelector("#txtTelefono").value = objData.data.telefono;
                 document.querySelector("#txtEmail").value = objData.data.email_user;
-                document.querySelector("#listRolid").value =objData.data.idrol;
+                document.querySelector("#listRolid").value = objData.data.idrol;
                 $('#listRolid').selectpicker('render');
 
-                if(objData.data.status == 1){
+                if (objData.data.status == 1) {
                     document.querySelector("#listStatus").value = 1;
-                }else{
+                } else {
                     document.querySelector("#listStatus").value = 2;
                 }
                 $('#listStatus').selectpicker('render');
             }
         }
-    
+
         $('#modalFormUsuario').modal('show');
     }
 }
 
-function fntDelUsuario(idpersona){
+function fntDelUsuario(idpersona) {
 
     var idUsuario = idpersona;
     swal({
@@ -387,25 +431,23 @@ function fntDelUsuario(idpersona){
         cancelButtonText: "No, cancelar!",
         closeOnConfirm: false,
         closeOnCancel: true
-    }, function(isConfirm) {
-        
-        if (isConfirm) 
-        {
+    }, function (isConfirm) {
+
+        if (isConfirm) {
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            var ajaxUrl = base_url+'/Usuarios/delUsuario';
-            var strData = "idUsuario="+idUsuario;
-            request.open("POST",ajaxUrl,true);
+            var ajaxUrl = base_url + '/Usuarios/delUsuario';
+            var strData = "idUsuario=" + idUsuario;
+            request.open("POST", ajaxUrl, true);
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             request.send(strData);
-            request.onreadystatechange = function(){
-                if(request.readyState == 4 && request.status == 200){
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
                     var objData = JSON.parse(request.responseText);
-                    if(objData.status)
-                    {
-                        swal("Eliminar!", objData.msg , "success");
+                    if (objData.status) {
+                        swal("Eliminar!", objData.msg, "success");
                         tableUsuarios.api().ajax.reload();
-                    }else{
-                        swal("Atención!", objData.msg , "error");
+                    } else {
+                        swal("Atención!", objData.msg, "error");
                     }
                 }
             }
@@ -416,17 +458,16 @@ function fntDelUsuario(idpersona){
 }
 
 
-function openModal()
-{
-    document.querySelector('#idUsuario').value ="";
+function openModal() {
+    document.querySelector('#idUsuario').value = "";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
-    document.querySelector('#btnText').innerHTML ="Guardar";
+    document.querySelector('#btnText').innerHTML = "Guardar";
     document.querySelector('#titleModal').innerHTML = "Nuevo Usuario";
     document.querySelector("#formUsuario").reset();
     $('#modalFormUsuario').modal('show');
 }
 
-function openModalPerfil(){
+function openModalPerfil() {
     $('#modalFormPerfil').modal('show');
 }

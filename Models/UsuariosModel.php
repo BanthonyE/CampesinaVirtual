@@ -16,12 +16,15 @@
 		private $strNomFiscal;
 		private $strDirFiscal;
 
+		private $strNombFoto;
+		private $intBaseComunera;
+
 		public function __construct()
 		{
 			parent::__construct();
 		}	
 
-		public function insertUsuario(string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid, int $status){
+		public function insertUsuario(string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid, int $status, string $direccion, int $base_comunera, string $foto){
 
 			$this->strIdentificacion = $identificacion;
 			$this->strNombre = $nombre;
@@ -31,6 +34,11 @@
 			$this->strPassword = $password;
 			$this->intTipoId = $tipoid;
 			$this->intStatus = $status;
+
+			$this->strDirFiscal = $direccion;
+			$this->intBaseComunera = $base_comunera;
+			$this->strNombFoto = $foto;
+
 			$return = 0;
 
 			$sql = "SELECT * FROM persona WHERE 
@@ -39,8 +47,8 @@
 
 			if(empty($request))
 			{
-				$query_insert  = "INSERT INTO persona(identificacion,nombres,apellidos,telefono,email_user,password,rolid,status) 
-								  VALUES(?,?,?,?,?,?,?,?)";
+				$query_insert  = "INSERT INTO persona(identificacion,nombres,apellidos,telefono,email_user,password,rolid,status,direccionfiscal,idbase,nombre_foto) 
+								  VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	        	$arrData = array($this->strIdentificacion,
         						$this->strNombre,
         						$this->strApellido,
@@ -48,13 +56,32 @@
         						$this->strEmail,
         						$this->strPassword,
         						$this->intTipoId,
-        						$this->intStatus);
+        						$this->intStatus,
+								$this->strDirFiscal,
+								$this->intBaseComunera,
+								$this->strNombFoto);
 	        	$request_insert = $this->insert($query_insert,$arrData);
 	        	$return = $request_insert;
 			}else{
 				$return = "exist";
 			}
 	        return $return;
+		}
+
+		public function createCarnet(string $identificacion_carnet){
+
+			$fecha_e = date("Y-m-d h:i:s");
+
+			$fecha_c = date("d-m-Y",strtotime($fecha_e."+ 2 year"));
+
+
+			$query_insert_carnet  = "INSERT INTO carnet(fecha_emi,fecha_cadu,identificacion_persona) 
+			VALUES(?,?,?)";
+			$arrData_carnet = array($fecha_e,
+			$fecha_c,
+			$identificacion_carnet);
+
+			$this->insert($query_insert_carnet,$arrData_carnet);	
 		}
 
 		public function selectUsuarios()

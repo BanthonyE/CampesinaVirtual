@@ -122,7 +122,7 @@ require 'Assets/vendor/autoload.php';
         $sqlmember ="SELECT * FROM persona
         INNER JOIN rol ON persona.rolid=rol.idrol
         INNER JOIN cargo ON rol.idcargo=cargo.idcargo
-        INNER JOIN baserondera ON baserondera.id_base=persona.id_base
+        INNER JOIN baserondera ON baserondera.id_base=persona.idbase
         INNER JOIN distrito ON distrito.id_distrito=baserondera.id_distrito
         INNER JOIN provincia ON provincia.id_provincia=distrito.id_provi
         INNER JOIN departamento ON departamento.id_depart=provincia.id_depart 
@@ -131,11 +131,6 @@ require 'Assets/vendor/autoload.php';
         $count=0;
             
         while($found = mysqli_fetch_array($retrieve)){
-    /*         $title=$found['Mtitle'];$firstname=$found['Firstname'];$sirname=$found['Sirname'];$rank=$found['Rank'];
-          $id=$found['id'];$dept=$found['Department'];$contact=$found['Email'];
-          $count=$count+1;  $get_time=$found['Time']; $time=time(); $pass=$found['Staffid'];
-          $names=$firstname." ".$sirname;
-          $profile= $found['Picname']; */
 
           $apellidos=$found['apellidos'];
           $dni=$found['identificacion'];

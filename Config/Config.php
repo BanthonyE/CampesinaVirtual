@@ -7,10 +7,10 @@
 	date_default_timezone_set('America/Guatemala');
 
 	//Datos de conexión a Base de Datos
-	const DB_HOST = "localhost";
-	const DB_NAME = "db_campesinavirtual";
-	const DB_USER = "root";
-	const DB_PASSWORD = "";
+	const DB_HOST = "vkh7buea61avxg07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+	const DB_NAME = "qhrtzyzdmrx5j42u";
+	const DB_USER = "dnjmxhbd9vepxngn";
+	const DB_PASSWORD = "euouo3jyoy0o5vzj";
 	const DB_CHARSET = "utf8";
 
 	//Deliminadores decimal y millar Ej. 24,1989.00

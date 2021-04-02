@@ -1,7 +1,7 @@
 <?php 
 	
 	//define("BASE_URL", "http://localhost/tienda_virtual/");
-	const BASE_URL = "https://campesinavirtual.herokuapp.com/";
+	const BASE_URL = "https://campesinavirtual.herokuapp.com";
 
 	//Zona horaria
 	date_default_timezone_set('America/Guatemala');

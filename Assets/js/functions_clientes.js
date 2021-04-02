@@ -243,3 +243,10 @@ function openModal()
     document.querySelector("#formCliente").reset();
     $('#modalFormCliente').modal('show');
 }
+
+function fntViewCarnet(idpersona){
+/*     window.location.target = "_blank";
+    window.location.href = ''+base_url+'/Clientes/prueba?idpersona='+idpersona; */
+
+    window.open(base_url+'/Clientes/prueba?idpersona='+idpersona, '_blank');
+}

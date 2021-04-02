@@ -111,7 +111,8 @@ class Clientes extends Controllers
 			}
 				
 			/* $btnCarnet = '<button class="btn btn-secondary btn-sm btnCarnetUsuario" onClick="fntCarnetUsuario('.$arrData[$i]['idpersona'].')" title="Carnet Usuario"><i class="far fa-id-card"></i></button>'; */
-			$btnCarnet = '<a class="btn btn-secondary btn-sm btnCarnetUsuario" href="carnet.php?id='.$arrData[$i]['idpersona'].'" target="_blank" title="Carnet Usuario"><i class="far fa-id-card"></i></a>';
+			/* $btnCarnet = '<a class="btn btn-secondary btn-sm btnCarnetUsuario" href="carnet.php?id='.$arrData[$i]['idpersona'].'" target="_blank" title="Carnet Usuario"><i class="far fa-id-card"></i></a>'; */
+			$btnCarnet = '<a class="btn btn-secondary btn-sm btnCarnetUsuario" onClick="fntViewCarnet(' . $arrData[$i]['idpersona'] . ')" title="Carnet Usuario"><i class="far fa-id-card"></i></a>';
 							
 			if($_SESSION['permisosMod']['u']){
 				$btnEdit = '<button class="btn btn-primary  btn-sm" onClick="fntEditInfo('.$arrData[$i]['idpersona'].')" title="Editar cliente"><i class="fas fa-pencil-alt"></i></button>';
@@ -154,5 +155,16 @@ class Clientes extends Controllers
 			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
 		}
 		die();
+	}
+
+	public function prueba(){
+		$idpersona = $_GET['idpersona'];
+
+		$result_carnet = $this->model->getCarnet($idpersona);
+
+		$_SESSION['datos_carnet'] = $result_carnet;
+
+		header('Location: ' . base_url() . '/carnet.php');
+		exit;
 	}
 }

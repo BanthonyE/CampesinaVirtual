@@ -137,6 +137,25 @@ class ClientesModel extends Mysql
 		$request = $this->update($sql,$arrData);
 		return $request;
 	}
+
+	public function getCarnet(int $idpersona){
+
+
+		$this->intIdUsuario = $idpersona;
+		$sql = "SELECT * FROM persona
+				INNER JOIN rol ON persona.rolid=rol.idrol
+				INNER JOIN cargo ON rol.idcargo=cargo.idcargo
+				INNER JOIN baserondera ON baserondera.id_base=persona.idbase
+				INNER JOIN distrito ON distrito.id_distrito=baserondera.id_distrito
+				INNER JOIN provincia ON provincia.id_provincia=distrito.id_provi
+				INNER JOIN departamento ON departamento.id_depart=provincia.id_depart 
+				WHERE idpersona = $this->intIdUsuario";
+		$request = $this->select($sql);
+		
+		return $request;
+            
+
+	}
 }
 
  ?>

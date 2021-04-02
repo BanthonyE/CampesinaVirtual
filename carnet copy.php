@@ -1,35 +1,13 @@
 <?php 
+$servername = "vkh7buea61avxg07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+$database = "qhrtzyzdmrx5j42u";
+$username = "dnjmxhbd9vepxngn";
+$password = "euouo3jyoy0o5vzj";
+
+$db = mysqli_connect($servername, $username, $password, $database);
+
 
 require 'Assets/vendor/autoload.php';
-
-session_start();
-$found = $_SESSION['datos_carnet'];
-
-$apellidos=$found['apellidos'];
-$dni=$found['identificacion'];
-$tipoCargo=$found['descrip'];
-$contact="anthony@gmail.com";
-$get_time="11";
-$time=time();
-$cargo=$found['nombrerol'];
-$nombres=$found['nombres'];
-$profile;
-
-$fecha_emision = date("d-m-Y");
-$fecha_caducidad = date("d-m-Y",strtotime($fecha_emision."+ 2 year"));
-
-$a = (string)$dni;
-$codigo = '20' . $a[1] . $a[2] . '567890';
-
-
-$Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
-$code = $Bar->getBarcode($codigo, $Bar::TYPE_CODE_128);
-
-$departamento = $found['nomb_depart'];
-$distrito = $found['nomb_distrito'];
-$provincia = $found['nomb_provincia'];
-$baserondera = $found['nomb_base'];
-$direccion = $found['direccionfiscal'];
 
 ?>
 
@@ -138,6 +116,53 @@ $direccion = $found['direccionfiscal'];
           </td>
         </tr>
       </table>
+      <center>
+        <?php  
+        $idx = $_GET['id'];
+        $sqlmember ="SELECT * FROM persona
+        INNER JOIN rol ON persona.rolid=rol.idrol
+        INNER JOIN cargo ON rol.idcargo=cargo.idcargo
+        INNER JOIN baserondera ON baserondera.id_base=persona.idbase
+        INNER JOIN distrito ON distrito.id_distrito=baserondera.id_distrito
+        INNER JOIN provincia ON provincia.id_provincia=distrito.id_provi
+        INNER JOIN departamento ON departamento.id_depart=provincia.id_depart 
+        WHERE idpersona='$idx'";
+        $retrieve = mysqli_query($db,$sqlmember);
+        $count=0;
+            
+        while($found = mysqli_fetch_array($retrieve)){
+
+          $apellidos=$found['apellidos'];
+          $dni=$found['identificacion'];
+          $tipoCargo=$found['descrip'];
+          $contact="anthony@gmail.com";
+          $count=$count+1;
+          $get_time="11";
+          $time=time();
+          $cargo=$found['nombrerol'];
+          $nombres=$found['nombres'];
+          $profile;
+
+          $fecha_emision = date("d-m-Y");
+          $fecha_caducidad = date("d-m-Y",strtotime($fecha_emision."+ 2 year"));
+
+          $a = (string)$dni;
+          $codigo = '20' . $a[1] . $a[2] . '567890';
+
+          
+          $Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
+          $code = $Bar->getBarcode($codigo, $Bar::TYPE_CODE_128);
+
+          $departamento = $found['nomb_depart'];
+          $distrito = $found['nomb_distrito'];
+          $provincia = $found['nomb_provincia'];
+          $baserondera = $found['nomb_base'];
+          $direccion = $found['direccionfiscal'];
+
+        }             	 	
+			    
+		  ?>
+      </center>
 
       <?php 
         echo"<img src='Assets/images/carnet/avatar.jpg' height='120px' width='110px' alt='' style='margin-left:10px; margin-top:15px;'>";	 

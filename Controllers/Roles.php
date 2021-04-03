@@ -139,5 +139,3 @@ class Roles extends Controllers
 			die();
 		}
 }
-
-?>

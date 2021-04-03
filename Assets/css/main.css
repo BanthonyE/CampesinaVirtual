@@ -17442,8 +17442,5 @@ be a descendant of the grid when it is being dragged.
     left: 50%;
     margin-left: -400px;
   }
-  /*Barra de Otras noticias ocultandolo*/
-  .rightbar_content {
-    display: none;
-  }
+ 
 }

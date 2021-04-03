@@ -72,7 +72,7 @@
           <div class="form-row">
             <div class="form-group col-md-12">
               <label for="txtDireccion">Dirección</label>
-              <input type="text" class="form-control valid validText" id="txtDireccion" name="txtDireccion">
+              <input type="text" class="form-control valid" id="txtDireccion" name="txtDireccion">
             </div>
           </div>          
           <div class="form-row">

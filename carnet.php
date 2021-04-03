@@ -141,7 +141,12 @@ $direccion = $found['direccionfiscal'];
       </table>
 
       <?php 
-        echo"<img src='Assets/images/fotos/".$nombre_imagen."' height='120px' width='110px' alt='' style='margin-left:10px; margin-top:15px;'>";	 
+        if(!isset($nombre_imagen)){
+          echo"<img src='Assets/images/carnet/avatar.png' height='120px' width='110px' alt='' style='margin-left:10px; margin-top:15px;'>";	 
+        }else{
+          echo"<img src='Assets/images/fotos/".$nombre_imagen."' height='120px' width='110px' alt='' style='margin-left:10px; margin-top:15px;'>";	 
+        }
+        
       ?>
 
       <div class="container" style="margin-left:135px; margin-top:-128px; font-size:13px;">

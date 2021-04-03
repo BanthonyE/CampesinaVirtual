@@ -11,6 +11,7 @@
       <div class="modal-body">
         <form id="formUsuario" name="formUsuario" class="form-horizontal" enctype="multipart/form-data">
           <input type="hidden" id="idUsuario" name="idUsuario" value="">
+          <input type="hidden" id="tipo" name="tipo" value="0">
           <p class="text-primary">Todos los campos son obligatorios.</p>
 
           <div class="form-row">
@@ -20,7 +21,7 @@
             </div>
             <div class="form-group col-md-6">
               <label for="txtIdentificacion">Foto</label><h7 style="color:red"> - Asegúrese que la imagen sea con fondo transparente</h7>
-              <input type='file' class="form-control" id='filedImagen' name="filedImagen"  required="">
+              <input type='file' class="form-control" id='filedImagen' name="filedImagen">
             </div>
           </div>
           <div class="form-row">
@@ -47,31 +48,31 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="listDepartamento">Departamento</label>
-              <select class="form-control" data-live-search="true" id="listDepartamento" name="listDepartamento" required>
+              <select class="form-control valid" data-live-search="true" id="listDepartamento" name="listDepartamento" required="">
               </select>
             </div>
             <div class="form-group col-md-6">
               <label for="listProvincia">Provincia</label>
-              <select class="form-control" data-live-search="true" id="listProvincia" name="listProvincia" required>
+              <select class="form-control valid" data-live-search="true" id="listProvincia" name="listProvincia" required>
               </select>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="listDistrito">Distrito</label>
-              <select class="form-control" data-live-search="true" id="listDistrito" name="listDistrito" required>
+              <select class="form-control valid" data-live-search="true" id="listDistrito" name="listDistrito" required>
               </select>
             </div>
             <div class="form-group col-md-6">
               <label for="listBaseRondera">Base Rondera</label>
-              <select class="form-control" data-live-search="true" id="listBaseRondera" name="listBaseRondera" required>
+              <select class="form-control valid" data-live-search="true" id="listBaseRondera" name="listBaseRondera" required>
               </select>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-12">
               <label for="txtDireccion">Dirección</label>
-              <input type="text" class="form-control valid validText" id="txtDireccion" name="txtDireccion" required="">
+              <input type="text" class="form-control valid validText" id="txtDireccion" name="txtDireccion">
             </div>
           </div>          
           <div class="form-row">
@@ -91,11 +92,11 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="txtPassword">Contraseña</label>
-              <input type="password" class="form-control" id="txtPassword" name="txtPassword">
+              <input type="password" class="form-control valid" id="txtPassword" name="txtPassword">
             </div>
             <div class="form-group col-md-6">
               <label for="txtRepeatPassword">Repetir Contraseña</label>
-              <input type="password" class="form-control" id="txtRepeatPassword" name="txtRepeatPassword">
+              <input type="password" class="form-control valid" id="txtRepeatPassword" name="txtRepeatPassword">
             </div>
           </div>
           <div class="tile-footer">

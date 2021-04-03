@@ -28,18 +28,29 @@
 
 		public function setUsuario(){
 			if($_POST){			
+				/* if (empty($_POST['txtPassword']) ||empty($_POST['txtRepeatPassword']) ||empty($_POST['txtDireccion']) ||empty($_POST['listBaseRondera']) ||empty($_POST['listDistrito']) ||empty($_POST['listProvincia']) ||empty($_POST['listDepartamento']) || empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['listRolid']) || empty($_POST['listStatus'])) */
+				/* if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listRolid']) || empty($_POST['listStatus']) ) */
 				if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listRolid']) || empty($_POST['listStatus']) )
 				{
 					/* $arrResponse = array("status" => false, "msg" => 'Datos incorrectos.'); */
 					$arrResponse['status'] = false;
-					$arrResponse['msg'] = 'Datos incorrectos.';
-				}else{ 
+					$arrResponse['msg'] = 'Ingrese los datos correctamente';
+				} elseif ($_POST['txtRepeatPassword'] != $_POST['txtPassword']) {
+					$arrResponse['status'] = false;
+					$arrResponse['msg'] = 'Las claves no coinciden';
+				} elseif (strlen(strClean($_POST['txtIdentificacion']))!=8) {
+					$arrResponse['status'] = false;
+					$arrResponse['msg'] = 'El campo de identificación debe tener 8 dígitos';
+				} elseif (strlen(strClean($_POST['txtTelefono']))!=9) {
+					$arrResponse['status'] = false;
+					$arrResponse['msg'] = 'El campo del teléfono debe tener 9 dígitos';
+				} else {
 					$idUsuario = intval($_POST['idUsuario']);
 					$strIdentificacion = strClean($_POST['txtIdentificacion']);
 					$strNombre = ucwords(strClean($_POST['txtNombre']));
 					$strApellido = ucwords(strClean($_POST['txtApellido']));
 					$intTelefono = intval(strClean($_POST['txtTelefono']));
-					$strEmail = strtolower(strClean($_POST['txtEmail']));
+					$strEmail = ucwords(strClean($_POST['txtEmail']));
 					$intTipoId = intval(strClean($_POST['listRolid']));
 					$intStatus = intval(strClean($_POST['listStatus']));
 					$request_user = "";
@@ -56,6 +67,8 @@
 						$temp_foto = $_FILES['filedImagen']['tmp_name'];
 						$ruta = "Assets/images/fotos". "/" . $nombre_foto;
 						move_uploaded_file($temp_foto, $ruta);
+					}else{
+						$nombre_foto = "avatar.jpg";
 					}
 
 					$this->model->createCarnet($strIdentificacion);
@@ -145,7 +158,7 @@
 					if($_SESSION['permisosMod']['u']){
 						if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['idrol'] == 1) ||
 							($_SESSION['userData']['idrol'] == 1 and $arrData[$i]['idrol'] != 1) ){
-							$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario(this,'.$arrData[$i]['idpersona'].')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
+							$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario('.$arrData[$i]['idpersona'].')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
 						}else{
 							$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 						}

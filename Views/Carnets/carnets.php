@@ -1,6 +1,4 @@
 <?php 
-require '../../Assets/vendor/autoload.php';
-
 session_start();
 $found = $_SESSION['datos_carnet'];
 
@@ -20,9 +18,6 @@ $fecha_caducidad = date("d-m-Y",strtotime($fecha_emision."+ 2 year"));
 $a = (string)$dni;
 $codigo = '20' . $a[1] . $a[2] . '567890';
 
-
-$Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
-$code = $Bar->getBarcode($codigo, $Bar::TYPE_CODE_128);
 
 $departamento = $found['nomb_depart'];
 $distrito = $found['nomb_distrito'];
@@ -229,9 +224,6 @@ $direccion = $found['direccionfiscal'];
         <div style="position:absolute; z-index:1000">
           <p style="font-weight: bold;margin-left: -100px; margin-top:8px; opacity: 1; width:100px">CREDENCIAL REGIONAL
           </p>
-        </div>
-        <div style="margin-left: 130px; position:absolute; z-index:1000">
-          <p style="opacity: 1;"> <?php if(isset($code)){ echo$code;}?></p>
         </div>
         <div
           style="width:400px;margin-left: -120px; margin-top:0px; font-size:-10px; background-color: #000;position:absolute; padding: 25px; opacity: 0.5; ; z-index:1">

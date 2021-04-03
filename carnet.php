@@ -206,7 +206,7 @@ $direccion = $found['direccionfiscal'];
         style="margin-top:27px; margin-left:40px; position:absolute;">
       <p style="font-size: 9px; margin-top: 60px; margin-left: 35px; position:absolute;">Presidente CUNARC - PERÚ</p>
 
-      <img src="Assets/images/carnet/Presidentecurerc.jpeg" alt="Avatar" width="90px"
+      <img src="Assets/images/carnet/PresidenteCURERC.jpeg" alt="Avatar" width="90px"
         style="margin-top:27px; margin-left:190px; position:absolute;">
       <p style="font-size: 9px; margin-top: 60px; margin-left: 180px; position:absolute;">Presidente CUNARC - PERÚ</p>
 

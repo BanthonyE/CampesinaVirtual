@@ -26,37 +26,49 @@ class Usuarios extends Controllers
 		$this->views->getView($this, "usuarios", $data);
 	}
 
-	public function setUsuario()
-	{
-		if ($_POST) {
-			if (empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listRolid']) || empty($_POST['listStatus'])) {
-				/* $arrResponse = array("status" => false, "msg" => 'Datos incorrectos.'); */
-				$arrResponse['status'] = false;
-				$arrResponse['msg'] = 'Datos incorrectos.';
-			} else {
-				$idUsuario = intval($_POST['idUsuario']);
-				$strIdentificacion = strClean($_POST['txtIdentificacion']);
-				$strNombre = ucwords(strClean($_POST['txtNombre']));
-				$strApellido = ucwords(strClean($_POST['txtApellido']));
-				$intTelefono = intval(strClean($_POST['txtTelefono']));
-				$strEmail = strtolower(strClean($_POST['txtEmail']));
-				$intTipoId = intval(strClean($_POST['listRolid']));
-				$intStatus = intval(strClean($_POST['listStatus']));
-				$request_user = "";
-				$request_carnet = "";
+		public function setUsuario(){
+			if($_POST){			
+				/* if (empty($_POST['txtPassword']) ||empty($_POST['txtRepeatPassword']) ||empty($_POST['txtDireccion']) ||empty($_POST['listBaseRondera']) ||empty($_POST['listDistrito']) ||empty($_POST['listProvincia']) ||empty($_POST['listDepartamento']) || empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['listRolid']) || empty($_POST['listStatus'])) */
+				/* if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listRolid']) || empty($_POST['listStatus']) ) */
+				if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listRolid']) || empty($_POST['listStatus']) )
+				{
+					/* $arrResponse = array("status" => false, "msg" => 'Datos incorrectos.'); */
+					$arrResponse['status'] = false;
+					$arrResponse['msg'] = 'Ingrese los datos correctamente';
+				} elseif ($_POST['txtRepeatPassword'] != $_POST['txtPassword']) {
+					$arrResponse['status'] = false;
+					$arrResponse['msg'] = 'Las claves no coinciden';
+				} elseif (strlen(strClean($_POST['txtIdentificacion']))!=8) {
+					$arrResponse['status'] = false;
+					$arrResponse['msg'] = 'El campo de identificación debe tener 8 dígitos';
+				} elseif (strlen(strClean($_POST['txtTelefono']))!=9) {
+					$arrResponse['status'] = false;
+					$arrResponse['msg'] = 'El campo del teléfono debe tener 9 dígitos';
+				} else {
+					$idUsuario = intval($_POST['idUsuario']);
+					$strIdentificacion = strClean($_POST['txtIdentificacion']);
+					$strNombre = ucwords(strClean($_POST['txtNombre']));
+					$strApellido = ucwords(strClean($_POST['txtApellido']));
+					$intTelefono = intval(strClean($_POST['txtTelefono']));
+					$strEmail = ucwords(strClean($_POST['txtEmail']));
+					$intTipoId = intval(strClean($_POST['listRolid']));
+					$intStatus = intval(strClean($_POST['listStatus']));
+					$request_user = "";
+					$request_carnet = "";
 
+					$txtDireccion = ucwords(strClean($_POST['txtDireccion']));
+					$listBaseRondera = intval(strClean($_POST['listBaseRondera']));
 
-				$txtDireccion = ucwords(strClean($_POST['txtDireccion']));
-				$listBaseRondera = intval(strClean($_POST['listBaseRondera']));
-
-				if (!empty($_FILES['filedImagen']['name'])) {
-					$nombre_foto = $_FILES['filedImagen']['name'];
-					$size_foto = $_FILES['filedImagen']['size'];
-					$tipo_foto = $_FILES['filedImagen']['type'];
-					$temp_foto = $_FILES['filedImagen']['tmp_name'];
-					$ruta = "Assets/images/fotos" . "/" . $nombre_foto;
-					move_uploaded_file($temp_foto, $ruta);
-				}
+					if (!empty($_FILES['filedImagen']['name'])) {
+						$nombre_foto = $_FILES['filedImagen']['name'];
+						$size_foto = $_FILES['filedImagen']['size'];
+						$tipo_foto = $_FILES['filedImagen']['type'];
+						$temp_foto = $_FILES['filedImagen']['tmp_name'];
+						$ruta = "Assets/images/fotos". "/" . $nombre_foto;
+						move_uploaded_file($temp_foto, $ruta);
+					}else{
+						$nombre_foto = "avatar.jpg";
+					}
 
 				$this->model->createCarnet($strIdentificacion);
 				if ($idUsuario == 0) {
@@ -132,6 +144,30 @@ class Usuarios extends Controllers
 				if (($PreData[$j]['status'] == 1) && ($PreData[$j]['idrol'] >= $_SESSION['idRole'])) {
 
 					$arrData[] = $PreData[$j];
+
+					if($_SESSION['permisosMod']['r']){
+						$btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$arrData[$i]['idpersona'].')" title="Ver usuario"><i class="far fa-eye"></i></button>';
+					}
+					if($_SESSION['permisosMod']['u']){
+						if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['idrol'] == 1) ||
+							($_SESSION['userData']['idrol'] == 1 and $arrData[$i]['idrol'] != 1) ){
+							$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario('.$arrData[$i]['idpersona'].')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
+						}else{
+							$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
+						}
+					}
+					if($_SESSION['permisosMod']['d']){
+						if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['idrol'] == 1) ||
+							($_SESSION['userData']['idrol'] == 1 and $arrData[$i]['idrol'] != 1) and
+							($_SESSION['userData']['idpersona'] != $arrData[$i]['idpersona'] )
+							 ){
+							$btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario('.$arrData[$i]['idpersona'].')" title="Eliminar usuario"><i class="far fa-trash-alt"></i></button>';
+						}else{
+							$btnDelete = '<button class="btn btn-secondary btn-sm" disabled ><i class="far fa-trash-alt"></i></button>';
+						}
+					}
+					$arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
+
 				}
 			}
 		}

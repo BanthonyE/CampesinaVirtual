@@ -40,10 +40,15 @@
 			$this->strNombFoto = $foto;
 
 			$return = 0;
-
-			$sql = "SELECT * FROM persona WHERE 
-					email_user = '{$this->strEmail}' or identificacion = '{$this->strIdentificacion}' ";
-			$request = $this->select_all($sql);
+			if($this->strEmail=="-" || $this->strEmail=="0" || $this->strEmail==0){
+				$sql = "SELECT * FROM persona WHERE 
+				identificacion = '{$this->strIdentificacion}' ";
+				$request = $this->select_all($sql);
+			}else{				
+				$sql = "SELECT * FROM persona WHERE 
+						email_user = '{$this->strEmail}' or identificacion = '{$this->strIdentificacion}' ";
+				$request = $this->select_all($sql);
+			}
 
 			if(empty($request))
 			{
@@ -100,10 +105,21 @@
 		}
 		public function selectUsuario(int $idpersona){
 			$this->intIdUsuario = $idpersona;
-			$sql = "SELECT p.idpersona,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.nit,p.nombrefiscal,p.direccionfiscal,r.idrol,r.nombrerol,p.status, DATE_FORMAT(p.datecreated, '%d-%m-%Y') as fechaRegistro 
+			$sql = "SELECT p.idpersona,p.idbase,p.identificacion,p.nombres,p.apellidos,p.telefono,p.email_user,p.nit,p.nombrefiscal,p.direccionfiscal,r.idrol,r.nombrerol,p.status, DATE_FORMAT(p.datecreated, '%d-%m-%Y') as fechaRegistro,
+							c.descrip, br.id_base, dis.id_distrito, pr.id_provincia, dep.id_depart
 					FROM persona p
 					INNER JOIN rol r
-					ON p.rolid = r.idrol
+					ON p.rolid = r.idrol				
+					INNER JOIN cargo c 
+					ON r.idcargo=c.idcargo
+					INNER JOIN baserondera br 
+					ON br.id_base=p.idbase
+					INNER JOIN distrito dis 
+					ON dis.id_distrito=br.id_distrito
+					INNER JOIN provincia pr 
+					ON pr.id_provincia=dis.id_provi
+					INNER JOIN departamento dep
+					ON dep.id_depart=pr.id_depart
 					WHERE p.idpersona = $this->intIdUsuario";
 			$request = $this->select($sql);
 			return $request;

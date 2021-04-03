@@ -167,7 +167,39 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
             divLoading.style.display = "flex";
-            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+
+
+            var ajaxUrl = base_url + '/Usuarios/putPerfil';
+            var formData = new FormData($("#formPerfil").get(0));
+            $.ajax({
+                type: 'POST',
+                url: ajaxUrl,
+                data: formData,                
+                contentType: false,
+                processData: false,
+                success: function (objData) {
+                    if (objData.status) {
+                        $('#modalFormPerfil').modal("hide");
+                        swal({
+                            title: "",
+                            text: objData.msg,
+                            type: "success",
+                            confirmButtonText: "Aceptar",
+                            closeOnConfirm: false,
+                        }, function (isConfirm) {
+                            if (isConfirm) {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        swal("Error", objData.msg, "error");
+                    }
+                    divLoading.style.display = "none";
+                    return false;
+                }
+            });
+
+/*            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             var ajaxUrl = base_url + '/Usuarios/putPerfil';
             var formData = new FormData(formPerfil);
             request.open("POST", ajaxUrl, true);
@@ -195,8 +227,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 divLoading.style.display = "none";
                 return false;
-            }
-        }
+            } */
+        } 
     }
     //Actualizar Datos Fiscales
     if (document.querySelector("#formDataFiscal")) {

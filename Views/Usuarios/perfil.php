@@ -6,7 +6,7 @@
   <div class="row user">
     <div class="col-md-12">
       <div class="profile">
-        <div class="info"><img class="user-img" src="<?= media();?>/images/avatar.png">
+        <div class="info"><img class="user-img" src="<?= media();?>/images/fotos/<?=$_SESSION['userData']['nombre_foto']?>">
           <h4><?= $_SESSION['userData']['nombres'].' '.$_SESSION['userData']['apellidos']; ?></h4>
           <p><?= $_SESSION['userData']['nombrerol']; ?></p>
         </div>
@@ -17,7 +17,7 @@
       <div class="tile p-0">
         <ul class="nav flex-column nav-tabs user-tabs">
           <li class="nav-item"><a class="nav-link active" href="#user-timeline" data-toggle="tab">Datos personales</a></li>
-          <li class="nav-item"><a class="nav-link" href="#user-settings" data-toggle="tab">Datos fiscales</a></li>
+          <!-- <li class="nav-item"><a class="nav-link" href="#user-settings" data-toggle="tab">Datos fiscales</a></li> -->
         </ul>
       </div>
     </div>
@@ -57,7 +57,7 @@
             </table>
           </div>
         </div>
-        <div class="tab-pane fade" id="user-settings">
+<!--         <div class="tab-pane fade" id="user-settings">
           <div class="tile user-settings">
             <h4 class="line-head">Datos fiscales</h4>
             <form id="formDataFiscal" name="formDataFiscal">
@@ -84,7 +84,7 @@
               </div>
             </form>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

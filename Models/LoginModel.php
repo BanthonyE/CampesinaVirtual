@@ -38,7 +38,8 @@ class LoginModel extends Mysql
 							p.nombrefiscal,
 							p.direccionfiscal,
 							r.idrol,r.nombrerol,
-							p.status 
+							p.status,
+							p.nombre_foto
 					FROM persona p
 					INNER JOIN rol r
 					ON p.rolid = r.idrol

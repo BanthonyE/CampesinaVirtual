@@ -192,7 +192,7 @@
 			return $request;
 		}
 
-		public function updatePerfil(int $idUsuario, string $identificacion, string $nombre, string $apellido, int $telefono, string $password){
+		public function updatePerfil(int $idUsuario, string $identificacion, string $nombre, string $apellido, int $telefono, string $password, string $foto){
 			$this->intIdUsuario = $idUsuario;
 			$this->strIdentificacion = $identificacion;
 			$this->strNombre = $nombre;
@@ -200,22 +200,44 @@
 			$this->intTelefono = $telefono;
 			$this->strPassword = $password;
 
+			$this->strNombFoto = $foto;
+
 			if($this->strPassword != "")
 			{
-				$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, password=? 
-						WHERE idpersona = $this->intIdUsuario ";
-				$arrData = array($this->strIdentificacion,
-								$this->strNombre,
-								$this->strApellido,
-								$this->intTelefono,
-								$this->strPassword);
+				if($this->strNombFoto != ""){
+					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, password=?, nombre_foto=? 
+							WHERE idpersona = $this->intIdUsuario ";
+					$arrData = array($this->strIdentificacion,
+									$this->strNombre,
+									$this->strApellido,
+									$this->intTelefono,
+									$this->strPassword,
+									$this->strNombFoto);
+				}else{
+					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, password=?,  
+							WHERE idpersona = $this->intIdUsuario ";
+					$arrData = array($this->strIdentificacion,
+									$this->strNombre,
+									$this->strApellido,
+									$this->intTelefono,
+									$this->strPassword);					
+				}
 			}else{
-				$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=? 
-						WHERE idpersona = $this->intIdUsuario ";
-				$arrData = array($this->strIdentificacion,
-								$this->strNombre,
-								$this->strApellido,
-								$this->intTelefono);
+				if($this->strNombFoto != ""){
+					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?,nombre_foto=? 
+							WHERE idpersona = $this->intIdUsuario ";
+					$arrData = array($this->strIdentificacion,
+									$this->strNombre,
+									$this->strApellido,
+									$this->intTelefono,
+									$this->strNombFoto);
+				}else{
+					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=? 
+							WHERE idpersona = $this->intIdUsuario ";
+					$arrData = array($this->strIdentificacion,
+									$this->strNombre,
+									$this->strApellido);					
+				}
 			}
 			$request = $this->update($sql,$arrData);
 		    return $request;

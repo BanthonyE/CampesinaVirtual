@@ -230,13 +230,27 @@ class Usuarios extends Controllers
 	{
 		if ($_POST) {
 			if (empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono'])) {
-				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
+				/* $arrResponse = array("status" => false, "msg" => 'Datos incorrectos.'); */
+				$arrResponse['status'] = false;
+				$arrResponse['msg'] = 'Datos incorrectos.';
+
 			} else {
 				$idUsuario = $_SESSION['idUser'];
 				$strIdentificacion = strClean($_POST['txtIdentificacion']);
 				$strNombre = strClean($_POST['txtNombre']);
 				$strApellido = strClean($_POST['txtApellido']);
 				$intTelefono = intval(strClean($_POST['txtTelefono']));
+
+				$nombre_foto = "";
+				if (!empty($_FILES['filedImagen']['name'])) {
+					$nombre_foto = $_FILES['filedImagen']['name'];
+					$size_foto = $_FILES['filedImagen']['size'];
+					$tipo_foto = $_FILES['filedImagen']['type'];
+					$temp_foto = $_FILES['filedImagen']['tmp_name'];
+					$ruta = "Assets/images/fotos". "/" . $nombre_foto;
+					move_uploaded_file($temp_foto, $ruta);
+				}
+
 				$strPassword = "";
 				if (!empty($_POST['txtPassword'])) {
 					$strPassword = hash("SHA256", $_POST['txtPassword']);
@@ -247,16 +261,23 @@ class Usuarios extends Controllers
 					$strNombre,
 					$strApellido,
 					$intTelefono,
-					$strPassword
+					$strPassword,
+					$nombre_foto
 				);
 				if ($request_user) {
 					sessionUser($_SESSION['idUser']);
-					$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.B,');
+					/* $arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.'); */
+					$arrResponse['status'] = true;
+					$arrResponse['msg'] = 'Datos Actualizados correctamente.';
 				} else {
-					$arrResponse = array("status" => false, "msg" => 'No es posible actualizar los datos.');
+					/* $arrResponse = array("status" => false, "msg" => 'No es posible actualizar los datos.'); */
+					$arrResponse['status'] = false;
+					$arrResponse['msg'] = 'No es posible actualizar los datos.';
 				}
 			}
-			echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+			/* echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE); */
+			header('Content-type: application/json; charset=utf-8');
+			echo json_encode($arrResponse);
 		}
 		die();
 	}

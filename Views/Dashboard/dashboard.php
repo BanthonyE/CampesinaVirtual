@@ -21,7 +21,7 @@
           <div class="row">
             <div class="leftbar_content">
               <div class="single_stuff wow fadeInDown">
-                <div class="single_stuff_img" align="center"> <a href="pages/single.html"><img src="Assets\images\Evento.jpg" alt=""></a> </div>
+                <div class="single_stuff_img" align="center"> <a href="pages/single.html"><img src="Assets\images\evento.jpg" alt=""></a> </div>
                 <div class="single_stuff_article">
                   <div class="single_sarticle_inner"> <a class="stuff_category" href="#">Technology</a>
                     <div class="stuff_article_inner"> <span class="stuff_date">Setiem <strong>20</strong></span>

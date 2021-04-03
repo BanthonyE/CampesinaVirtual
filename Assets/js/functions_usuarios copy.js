@@ -307,18 +307,6 @@ function fntProvinciaUsuario(idDepartamento) {
         }
     });
 }
-function fntProvinciaUsuarios(idDepartamento,idProvincia) {  
-    var ajaxUrl = base_url + '/Ubicacion/getSelectProvincias';
-    $.ajax({
-        type: 'POST',
-        url: ajaxUrl,
-        data: {idDepartamento : idDepartamento,
-            idProvincia : idProvincia},
-        success: function (objData) {
-            document.querySelector('#listProvincia').innerHTML = objData;
-        }
-    });
-}
 
 selectProvincia.addEventListener('change', (event) => {
     fntDistritoUsuario(event.target.value);
@@ -337,17 +325,6 @@ function fntDistritoUsuario(idProvincia) {
         }
     });
 }
-function fntDistritoUsuarios(idProvincia, idDistrito) {
-    var ajaxUrl = base_url + '/Ubicacion/getSelectDistritos';
-    $.ajax({
-        type: 'POST',
-        url: ajaxUrl,
-        data: {idProvincia : idProvincia, idDistrito : idDistrito},
-        success: function (objData) {
-            document.querySelector('#listDistrito').innerHTML = objData;
-        }
-    });
-}
 
 selectDistrito.addEventListener('change', (event) => {
     fntBaseRonderaUsuario(event.target.value);
@@ -360,18 +337,6 @@ function fntBaseRonderaUsuario(idDistrito) {
         type: 'POST',
         url: ajaxUrl,
         data: {idDistrito : idDistrito},
-        success: function (objData) {
-            document.querySelector('#listBaseRondera').innerHTML = objData;
-        }
-    });
-}
-
-function fntBaseRonderaUsuarios(idDistrito, idBaseRondera) {
-    var ajaxUrl = base_url + '/Ubicacion/getSelectBaseRonderas';    
-    $.ajax({
-        type: 'POST',
-        url: ajaxUrl,
-        data: {idDistrito : idDistrito, idBaseRondera : idBaseRondera},
         success: function (objData) {
             document.querySelector('#listBaseRondera').innerHTML = objData;
         }
@@ -432,18 +397,6 @@ function fntEditUsuario(idpersona) {
     document.getElementById("txtPassword").value = "";
     document.getElementById("txtRepeatPassword").value = "";
 
-    const aaa = document.querySelector('#listProvincia');
-    const bbb = document.querySelector('#listDistrito');
-    const ccc = document.querySelector('#listBaseRondera');
-        aaa.disabled = false;
-        bbb.disabled = false;
-        ccc.disabled = false;
-    
-/*         listaProvincia();
-        listaDistrito();
-        listaBaseRondera(); */
-    
-
     var idpersona = idpersona;
     var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     var ajaxUrl = base_url + '/Usuarios/getUsuario/' + idpersona;
@@ -453,6 +406,10 @@ function fntEditUsuario(idpersona) {
 
         if (request.readyState == 4 && request.status == 200) {
             var objData = JSON.parse(request.responseText);
+
+            selectProvincia.disabled = false;
+            selectDistrito.disabled = false;
+            selectBase.disabled = false;
 
             if (objData.status) {
                 document.querySelector("#idUsuario").value = objData.data.idpersona;
@@ -464,26 +421,30 @@ function fntEditUsuario(idpersona) {
                 document.querySelector("#listRolid").value = objData.data.idrol;
                 document.querySelector("#tipo").value = "1";
                 
-                
                 document.querySelector("#listDepartamento").value = objData.data.id_depart;
-                fntProvinciaUsuarios(objData.data.id_depart,objData.data.id_provincia);
-                fntDistritoUsuarios(objData.data.id_provincia,objData.data.id_distrito);
-                fntBaseRonderaUsuarios(objData.data.id_distrito,objData.data.id_base);
                 
+                document.querySelector("#listProvincia").value = objData.data.id_provincia;
                 
+                document.querySelector("#listDistrito").value = objData.data.id_distrito;
+                
+                document.querySelector("#listBaseRondera").value = objData.data.id_base;
                 
 
-                if(objData.data.direccionfiscal!=""){
+                if(isset(objData.data.direccionfiscal)){
                     document.querySelector("#txtDireccion").value = objData.data.direccionfiscal;
                 }else{
-                    document.querySelector("#txtDireccion").value = "";
+                    document.querySelector("#txtDireccion").value = "adasd";
                 }
+
+                
+                $('#listRolid').selectpicker('render');
 
                 if (objData.data.status == 1) {
                     document.querySelector("#listStatus").value = 1;
                 } else {
                     document.querySelector("#listStatus").value = 2;
                 }
+                $('#listStatus').selectpicker('render');
             }
         }
         $('#modalFormUsuario').modal('show');
@@ -530,17 +491,6 @@ function fntDelUsuario(idpersona) {
 
 
 function openModal() {
-    const aa = document.querySelector('#listProvincia');
-    const bb = document.querySelector('#listDistrito');
-    const cc = document.querySelector('#listBaseRondera');
-        aa.disabled = true;
-        bb.disabled = true;
-        cc.disabled = true;
-
-        aa.innerHTML='<option class="placeholder" selected disabled value="">Seleccione un distrito</option>';
-        bb.innerHTML='<option class="placeholder" selected disabled value="">Seleccione una provincia</option>';
-        cc.innerHTML='<option class="placeholder" selected disabled value="">Seleccione una base rondera</option>';
-    
     document.querySelector('#idUsuario').value = "";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
@@ -552,61 +502,4 @@ function openModal() {
 
 function openModalPerfil() {
     $('#modalFormPerfil').modal('show');
-}
-
-
-function listaDepartamento() {
-    if (document.querySelector('#listDepartamento')) {
-        var ajaxUrl = base_url + '/Ubicacion/getListaDepartamento';
-        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        request.open("GET", ajaxUrl, true);
-        request.send();
-        request.onreadystatechange = function () {
-            if (request.readyState == 4 && request.status == 200) {
-                document.querySelector('#listDepartamento').innerHTML = request.responseText;
-            }
-        }
-    }
-}
-
-function listaProvincia() {
-    if (document.querySelector('#listProvincia')) {
-        var ajaxUrl = base_url + '/Ubicacion/getListaProvincia';
-        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        request.open("GET", ajaxUrl, true);
-        request.send();
-        request.onreadystatechange = function () {
-            if (request.readyState == 4 && request.status == 200) {
-                document.querySelector('#listProvincia').innerHTML = request.responseText;
-            }
-        }
-    }
-}
-
-function listaDistrito() {
-    if (document.querySelector('#listDistrito')) {
-        var ajaxUrl = base_url + '/Ubicacion/getListaDistrito';
-        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        request.open("GET", ajaxUrl, true);
-        request.send();
-        request.onreadystatechange = function () {
-            if (request.readyState == 4 && request.status == 200) {
-                document.querySelector('#listDistrito').innerHTML = request.responseText;
-            }
-        }
-    }
-}
-
-function listaBaseRondera() {
-    if (document.querySelector('#listBaseRondera')) {
-        var ajaxUrl = base_url + '/Ubicacion/getListaBaseRondera';
-        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        request.open("GET", ajaxUrl, true);
-        request.send();
-        request.onreadystatechange = function () {
-            if (request.readyState == 4 && request.status == 200) {
-                document.querySelector('#listBaseRondera').innerHTML = request.responseText;
-            }
-        }
-    }
 }

@@ -103,7 +103,10 @@ class Usuarios extends Controllers
 							$strEmail,
 							$strPassword,
 							$intTipoId,
-							$intStatus
+							$intStatus,
+							$txtDireccion,
+							$listBaseRondera,
+							$nombre_foto
 						);
 					}
 				}
@@ -116,7 +119,7 @@ class Usuarios extends Controllers
 					} else {
 						/* $arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.'); */
 						$arrResponse['status'] = true;
-						$arrResponse['msg'] = 'Datos Actualizados correctamente.';
+						$arrResponse['msg'] = 'Datos Actualizados correctamente..A.';
 					}
 				} else if ($request_user == 'exist') {
 					/* $arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.'); */
@@ -157,7 +160,7 @@ class Usuarios extends Controllers
 				if($_SESSION['permisosMod']['u']){
 					if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['idrol'] == 1) ||
 						($_SESSION['userData']['idrol'] == 1 and $arrData[$i]['idrol'] != 1) ){
-						$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario(this,'.$arrData[$i]['idpersona'].')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
+						$btnEdit = '<button class="btn btn-primary  btn-sm btnEditUsuario" onClick="fntEditUsuario('.$arrData[$i]['idpersona'].')" title="Editar usuario"><i class="fas fa-pencil-alt"></i></button>';
 					}else{
 						$btnEdit = '<button class="btn btn-secondary btn-sm" disabled ><i class="fas fa-pencil-alt"></i></button>';
 					}
@@ -248,7 +251,7 @@ class Usuarios extends Controllers
 				);
 				if ($request_user) {
 					sessionUser($_SESSION['idUser']);
-					$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+					$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.B,');
 				} else {
 					$arrResponse = array("status" => false, "msg" => 'No es posible actualizar los datos.');
 				}
@@ -276,7 +279,7 @@ class Usuarios extends Controllers
 				);
 				if ($request_datafiscal) {
 					sessionUser($_SESSION['idUser']);
-					$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
+					$arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.C.');
 				} else {
 					$arrResponse = array("status" => false, "msg" => 'No es posible actualizar los datos.');
 				}

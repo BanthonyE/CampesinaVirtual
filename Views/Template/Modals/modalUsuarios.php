@@ -53,19 +53,19 @@
             </div>
             <div class="form-group col-md-6">
               <label for="listProvincia">Provincia</label>
-              <select class="form-control valid" data-live-search="true" id="listProvincia" name="listProvincia" required>
+              <select class="form-control valid" data-live-search="true" id="listProvincia" name="listProvincia" required disabled>
               </select>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="listDistrito">Distrito</label>
-              <select class="form-control valid" data-live-search="true" id="listDistrito" name="listDistrito" required>
+              <select class="form-control valid" data-live-search="true" id="listDistrito" name="listDistrito" required disabled>
               </select>
             </div>
             <div class="form-group col-md-6">
               <label for="listBaseRondera">Base Rondera</label>
-              <select class="form-control valid" data-live-search="true" id="listBaseRondera" name="listBaseRondera" required>
+              <select class="form-control valid" data-live-search="true" id="listBaseRondera" name="listBaseRondera" required disabled>
               </select>
             </div>
           </div>

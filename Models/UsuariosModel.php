@@ -125,7 +125,7 @@
 			return $request;
 		}
 
-		public function updateUsuario(int $idUsuario, string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid, int $status){
+		public function updateUsuario(int $idUsuario, string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password, int $tipoid, int $status, string $direccion, int $base_comunera, string $foto){
 
 			$this->intIdUsuario = $idUsuario;
 			$this->strIdentificacion = $identificacion;
@@ -137,6 +137,10 @@
 			$this->intTipoId = $tipoid;
 			$this->intStatus = $status;
 
+			$this->strDirFiscal = $direccion;
+			$this->intBaseComunera = $base_comunera;
+			$this->strNombFoto = $foto;
+
 			$sql = "SELECT * FROM persona WHERE (email_user = '{$this->strEmail}' AND idpersona != $this->intIdUsuario)
 										  OR (identificacion = '{$this->strIdentificacion}' AND idpersona != $this->intIdUsuario) ";
 			$request = $this->select_all($sql);
@@ -145,7 +149,7 @@
 			{
 				if($this->strPassword  != "")
 				{
-					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, email_user=?, password=?, rolid=?, status=? 
+					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, email_user=?, password=?, rolid=?, status=?,direccionfiscal=?,idbase=?,nombre_foto=? 
 							WHERE idpersona = $this->intIdUsuario ";
 					$arrData = array($this->strIdentificacion,
 	        						$this->strNombre,
@@ -154,9 +158,12 @@
 	        						$this->strEmail,
 	        						$this->strPassword,
 	        						$this->intTipoId,
-	        						$this->intStatus);
+	        						$this->intStatus,
+									$this->strDirFiscal,
+									$this->intBaseComunera,
+									$this->strNombFoto);
 				}else{
-					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, email_user=?, rolid=?, status=? 
+					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, email_user=?, rolid=?, status=?,direccionfiscal=?,idbase=?,nombre_foto=? 
 							WHERE idpersona = $this->intIdUsuario ";
 					$arrData = array($this->strIdentificacion,
 	        						$this->strNombre,
@@ -164,7 +171,10 @@
 	        						$this->intTelefono,
 	        						$this->strEmail,
 	        						$this->intTipoId,
-	        						$this->intStatus);
+	        						$this->intStatus,
+									$this->strDirFiscal,
+									$this->intBaseComunera,
+									$this->strNombFoto);
 				}
 				$request = $this->update($sql,$arrData);
 			}else{

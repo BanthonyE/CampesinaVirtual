@@ -19,6 +19,28 @@ document.addEventListener('DOMContentLoaded', function(){
             {"data":"status"},
             {"data":"options"}
         ],
+        'dom': 'lBfrtip',
+        'buttons': [{
+            "extend": "copyHtml5",
+            "text": "<i class='far fa-copy'></i> Copiar",
+            "titleAttr": "Copiar",
+            "className": "btn btn-secondary btn-md"
+        }, {
+            "extend": "excelHtml5",
+            "text": "<i class='fas fa-file-excel'></i> Excel",
+            "titleAttr": "Esportar a Excel",
+            "className": "btn btn-success btn-md"
+        }, {
+            "extend": "pdfHtml5",
+            "text": "<i class='fas fa-file-pdf'></i> PDF",
+            "titleAttr": "Esportar a PDF",
+            "className": "btn btn-danger btn-md"
+        }, {
+            "extend": "csvHtml5",
+            "text": "<i class='fas fa-file-csv'></i> CSV",
+            "titleAttr": "Esportar a CSV",
+            "className": "btn btn-info btn-md"
+        }],
         "resonsieve":"true",
         "bDestroy": true,
         "iDisplayLength": 10,

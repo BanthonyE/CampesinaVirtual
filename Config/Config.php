@@ -32,11 +32,3 @@
 	const EMAIL_REMITENTE = "no-reply@abelosh.com";
 	const NOMBRE_EMPESA = "Campesina Virtual";
 	const WEB_EMPRESA = "www.abelosh.com";
-	
-
-
-
-	
-
-
- ?>

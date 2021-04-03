@@ -16562,7 +16562,7 @@ be a descendant of the grid when it is being dragged.
 
   background-position: center center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+
   background-size: cover;
   height: 100vh;
   opacity: 0.7;
@@ -17058,7 +17058,7 @@ be a descendant of the grid when it is being dragged.
 /*Tamaño del Titulo del Login*/
 .login-content .logo h1 {
   font-size: 120px;
-  font-weight: 400;
+  font-weight: bold;
 }
 /*Cuadro del Login*/
 .login-content .login-box {
@@ -17414,4 +17414,36 @@ be a descendant of the grid when it is being dragged.
 
 .user .user-settings label {
   color: #666;
+}
+
+@media (min-width: 320px) and (max-width: 1500px) {
+  /*Botones de las tablas responsive*/
+  .dt-buttons {
+    padding-bottom: 15px;
+    padding-top: 5px;
+    text-align: center;
+  }
+  .btn-nuevo,
+  .btn-sm,
+  .btn-md,
+  .btn-group-sm > .btn {
+    padding: 0.25rem 0.2rem;
+    font-size: 0.765625rem;
+    line-height: 1.5;
+    border-radius: 3px;
+  }
+  /*Letra de titulo LOGIN resposive*/
+  .login-content .logo h1 {
+    font-size: 72px;
+    font-weight: bold;
+  }
+  /*Fondo de pantalla centrado resposive*/
+  .material-half-bg .cover {
+    left: 50%;
+    margin-left: -400px;
+  }
+  /*Barra de Otras noticias ocultandolo*/
+  .rightbar_content {
+    display: none;
+  }
 }

@@ -8,7 +8,7 @@ getModal('modalRoles', $data);
     <div>
       <h1><i class="fas fa-user-tag"></i> <?= $data['page_title'] ?>
         <?php if ($_SESSION['permisosMod']['w']) { ?>
-          <button class="btn btn-primary" type="button" onclick="openModal();"><i class="fas fa-plus-circle"></i> Nuevo</button>
+          <button class="btn btn-primary btn-nuevo" type="button" onclick="openModal();"><i class="fas fa-plus-circle"></i> Nuevo</button>
         <?php } ?>
       </h1>
     </div>
@@ -29,8 +29,8 @@ getModal('modalRoles', $data);
                   <th>ID</th>
                   <th>Nombre</th>
                   <th>Descripción</th>
-                  <th>Status</th>
-                  <th>Acciones</th>
+                  <th style="text-align: center;">Status</th>
+                  <th style="width: 120px;">Acciones</th>
                 </tr>
               </thead>
               <tbody>

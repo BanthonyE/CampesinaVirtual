@@ -90,7 +90,7 @@
         {
             $iddistri = $_POST['idDistrito'];
             $htmlOptions = "";
-            $htmlOptions .= '<option class="placeholder" selected disabled value="">Seleccione un distrito</option> ';                                  
+            $htmlOptions .= '<option class="placeholder" selected disabled value="">Seleccione una base rondera</option> ';                                  
             $arrData = $this->model->selectBaseRondera($iddistri);
             if (count($arrData) > 0) {
                 for ($i = 0; $i < count($arrData); $i++) {      
@@ -105,7 +105,7 @@
             $iddistri = $_POST['idDistrito'];
             $idbase = $_POST['idBaseRondera'];
             $htmlOptions = "";
-            $htmlOptions .= '<option class="placeholder" selected disabled value="">Seleccione un distrito</option> ';                                  
+            $htmlOptions .= '<option class="placeholder" selected disabled value="">Seleccione una base rondera</option> ';                                  
             $arrData = $this->model->selectBaseRondera($iddistri);
             if (count($arrData) > 0) {
                 for ($i = 0; $i < count($arrData); $i++) {    

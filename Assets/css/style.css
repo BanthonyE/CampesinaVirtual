@@ -966,6 +966,9 @@
   .topadd_place > a {
     width: 100%;
   }
+  .rightbar_content {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {

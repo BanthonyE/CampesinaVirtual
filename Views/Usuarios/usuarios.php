@@ -7,11 +7,7 @@ getModal('modalUsuarios', $data);
     <div>
       <h1><i class="fas fa-user-tag"></i> <?= $data['page_title'] ?>
         <?php if ($_SESSION['permisosMod']['w']) { ?>
-<<<<<<< HEAD
-          <button class="btn btn-primary" type="button" onclick="openModal();"><i class="fas fa-plus-circle"></i> Nuevoo</button>
-=======
           <button class="btn btn-primary btn-nuevo" type="button" onclick="openModal();"><i class="fas fa-plus-circle"></i> Nuevo</button>
->>>>>>> rama1
         <?php } ?>
       </h1>
     </div>

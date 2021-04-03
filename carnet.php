@@ -5,6 +5,7 @@ require 'Assets/vendor/autoload.php';
 session_start();
 $found = $_SESSION['datos_carnet'];
 
+$nombre_imagen=$found['nombre_foto'];
 $apellidos=$found['apellidos'];
 $dni=$found['identificacion'];
 $tipoCargo=$found['descrip'];
@@ -140,7 +141,7 @@ $direccion = $found['direccionfiscal'];
       </table>
 
       <?php 
-        echo"<img src='Assets/images/carnet/avatar.jpg' height='120px' width='110px' alt='' style='margin-left:10px; margin-top:15px;'>";	 
+        echo"<img src='Assets/images/fotos/".$nombre_imagen."' height='120px' width='110px' alt='' style='margin-left:10px; margin-top:15px;'>";	 
       ?>
 
       <div class="container" style="margin-left:135px; margin-top:-128px; font-size:13px;">
